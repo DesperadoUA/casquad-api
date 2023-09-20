@@ -1,0 +1,12 @@
+Create new editor for content
+[x] Casino
+[x] Bonus
+[x] Game
+[] Currency
+[] Languages
+[x] News
+[x] Vendor
+[] Payment
+[x] Page
+
+/---------------------------/
