@@ -2,11 +2,11 @@ Create new editor for content
 [x] Casino
 [x] Bonus
 [x] Game
-[] Currency
-[] Languages
+[X] Currency
+[X] Languages
 [x] News
 [x] Vendor
-[] Payment
+[X] Payment
 [x] Page
 
 /---------------------------/
