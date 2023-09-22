@@ -2,7 +2,7 @@ Create new editor for content
 [x] Casino
 [x] Bonus
 [x] Game
-[X] Currency
+[] Currency
 [X] Languages
 [x] News
 [x] Vendor
