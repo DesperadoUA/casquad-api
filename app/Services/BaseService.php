@@ -11,6 +11,10 @@ class BaseService {
     const ARR_LANG = ['ru' => 1, 'ua' => 2];
     const DEFAULT_POST_TYPE = 'default';
     protected $tables;
+    protected $shemas;
+    protected $response;
+    protected $serialize;
+    protected $configTables;
     public function __construct() {
         $this->tables = config('tables');
     }

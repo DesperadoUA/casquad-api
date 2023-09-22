@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CasinoService;
 
 class PostController extends Controller {
+    protected $service;
     public function __construct() {
         $this->service = new CasinoService();
     }

@@ -16,6 +16,13 @@ class FrontBaseService
     const LANG = 1;
     protected $request;
     protected $tables;
+    protected $response;
+    protected $config;
+    protected $shemas;
+    protected $cardBuilder;
+    protected $configTables;
+    protected $serialize;
+    protected $categorySerialize;
 
     public function __construct() {
         $this->tables = config('tables');

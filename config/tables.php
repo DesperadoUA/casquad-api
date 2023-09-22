@@ -28,5 +28,20 @@ return [
     'VENDOR_CATEGORY' => 'vendor_category',
     'VENDOR_CATEGORY_RELATIVE' => 'vendor_category_relative',
 
+    'PAYMENT' => 'payments',
+    'PAYMENT_META' => 'payment_meta',
+    'PAYMENT_CATEGORY' => 'payment_category',
+    'PAYMENT_CATEGORY_RELATIVE' => 'payment_category_relative',
+
+    'LANGUAGE' => 'languages',
+    'LANGUAGE_META' => 'language_meta',
+    'LANGUAGE_CATEGORY' => 'language_category',
+    'LANGUAGE_CATEGORY_RELATIVE' => 'language_category_relative',
+
+    'CURRENCY' => 'currencies',
+    'CURRENCY_META' => 'currency_meta',
+    'CURRENCY_CATEGORY' => 'currency_category',
+    'CURRENCY_CATEGORY_RELATIVE' => 'currency_category_relative',
+
     'PAGES' => 'pages'
 ];

@@ -30,7 +30,22 @@ return [
             'default' => 0
         ],
     ],
-    'CURRENCY' => [],
-    'LANGUAGE' => [],
-    'PAYMENT' => []
+    'CURRENCY' => [
+        'author' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+    ],
+    'LANGUAGE' => [
+        'author' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+    ],
+    'PAYMENT' => [
+        'author' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+    ]
 ];

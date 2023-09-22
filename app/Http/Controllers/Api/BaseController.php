@@ -13,6 +13,7 @@ class BaseController extends Controller {
     const ORDER_KEY = 'create_at';
     const LANG = 1;
     protected $tables;
+    protected $service;
     public function __construct() {
         $this->tables = config('tables');
     }
