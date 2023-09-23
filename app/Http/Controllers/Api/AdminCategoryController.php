@@ -8,10 +8,10 @@ class AdminCategoryController extends BaseController {
     public function __construct() {
         parent::__construct();
         $this->service = new AdminCategoryService([
-            'table' => $this->tables['BETTING'],
-            'table_meta' => $this->tables['BETTING_META'],
-            'table_category' => $this->tables['BETTING_CATEGORY'],
-            'table_relative' => $this->tables['BETTING_CATEGORY_RELATIVE'],
+            'table' => $this->tables['PAYMENT'],
+            'table_meta' => $this->tables['PAYMENT_META'],
+            'table_category' => $this->tables['PAYMENT_CATEGORY'],
+            'table_relative' => $this->tables['PAYMENT_CATEGORY_RELATIVE'],
         ]);
     }
     public function index(Request $request) {

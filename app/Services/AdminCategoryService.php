@@ -94,7 +94,7 @@ class AdminCategoryService extends BaseService {
             $newData['update_at'] = date('Y-m-d');
         }
 
-        $newData['content'] = empty($data['content']) ? json_encode([]) : json_encode($data['content']);
+        $newData['content'] = empty($data['content']) ? '' : $data['content'];
 
         if(isset($data['description'])) {
             $newData['description'] = Validate::textValidate($data['description']);
@@ -233,7 +233,7 @@ class AdminCategoryService extends BaseService {
             $newData['update_at'] = date('Y-m-d');
         }
 
-        $newData['content'] = empty($data['content']) ? json_encode([]) : json_encode($data['content']);
+        $newData['content'] = empty($data['content']) ? '' : $data['content'];
 
         if(isset($data['description'])) {
             $newData['description'] = Validate::textValidate($data['description']);
