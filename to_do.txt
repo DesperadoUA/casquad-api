@@ -3,7 +3,7 @@ Create new editor for content
 [x] Bonus
 [x] Game
 [] Currency
-[] Languages
+[x] Languages
 [x] News
 [x] Vendor
 [X] Payment
