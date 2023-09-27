@@ -29,7 +29,7 @@ class AdminVendorService extends AdminPostService {
         return $this->response;
     }
     public function update($data) {
-        $data_save = $this->serialize->validateUpdate($data, $this->tables['POKER'], $this->tables['VENDOR_META']);
+        $data_save = $this->serialize->validateUpdate($data, $this->tables['VENDOR'], $this->tables['VENDOR_META']);
         $post = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
         $post->updateById($data['id'], $data_save);
 
