@@ -5,11 +5,31 @@ use App\Serialize\BaseSerialize;
 
 class PostSerialize extends BaseSerialize {
     public function adminSerialize($data, $shemas){
-        $newData = array_merge(self::adminCommonSerialize($data), self::dataSerialize($data, $shemas));
+        $newData = array_merge(self::adminCommonSerialize($data), self::dataAdminSerialize($data, $shemas));
         return $newData;
     }
     public function frontSerialize($data, $shemas) {
         $newData = array_merge(self::frontCommonSerialize($data), self::dataSerialize($data, $shemas));
+        return $newData;
+    }
+    protected static function dataAdminSerialize($data, $shemas){
+        $newData = [];
+        foreach ($shemas as $key => $field) {
+            if($field['type'] === 'number') {
+                $newData[$key] = (int)$data->{$key};
+            }
+            elseif($field['type'] === 'string') {
+                $newData[$key] = $data->{$key};
+            }
+            elseif($field['type'] === 'json') {
+                if(empty($data->{$key})) $newData[$key] = [];
+                else $newData[$key] = json_decode($data->{$key}, true);
+            }
+            elseif($field['type'] === 'rich_text') {
+                if(empty($data->{$key})) $newData[$key] = '';
+                else $newData[$key] = $data->{$key};
+            }
+        }
         return $newData;
     }
     protected static function dataSerialize($data, $shemas){
@@ -24,6 +44,17 @@ class PostSerialize extends BaseSerialize {
             elseif($field['type'] === 'json') {
                 if(empty($data->{$key})) $newData[$key] = [];
                 else $newData[$key] = json_decode($data->{$key}, true);
+            }
+            elseif($field['type'] === 'rich_text') {
+                if(empty($data->{$key})) $newData[$key] = '';
+                else {
+                    $str = str_replace('<pre', '<div', $data->{$key});
+                    $str = str_replace('</pre', '</div', $str);
+                    $str = str_replace('&nbsp;', '', $str);
+                    $str = str_replace('<p><br></p>', '', $str);
+                    $str = str_replace('<p></p>', '', $str);
+                    $newData[$key] = htmlspecialchars_decode($str);
+                }
             }
         }
         return $newData;
@@ -57,6 +88,9 @@ class PostSerialize extends BaseSerialize {
                     $newData[$key] = (int)$data[$key];
                 }
                 elseif($shemas[$key]['type'] === 'string') {
+                    $newData[$key] = $data[$key];
+                }
+                elseif($shemas[$key]['type'] === 'rich_text') {
                     $newData[$key] = $data[$key];
                 }
             }

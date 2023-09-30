@@ -26,6 +26,15 @@ class AdminCasinoService extends AdminPostService {
             $this->response['body']['casino_vendor'] = self::relativePostPost($id, $this->tables['CASINO'], 
                                                                                    $this->tables['VENDOR'], 
                                                                                    $this->tables['CASINO_VENDOR_RELATIVE']);
+            $this->response['body']['casino_payment'] = self::relativePostPost($id, $this->tables['CASINO'], 
+                                                                                   $this->tables['PAYMENT'], 
+                                                                                   $this->tables['CASINO_PAYMENT_RELATIVE']);
+            $this->response['body']['casino_currency'] = self::relativePostPost($id, $this->tables['CASINO'], 
+                                                                                   $this->tables['CURRENCY'], 
+                                                                                   $this->tables['CASINO_CURRENCY_RELATIVE']);
+            $this->response['body']['casino_language'] = self::relativePostPost($id, $this->tables['CASINO'], 
+                                                                                   $this->tables['LANGUAGE'], 
+                                                                                   $this->tables['CASINO_LANGUAGE_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -43,6 +52,15 @@ class AdminCasinoService extends AdminPostService {
         self::updatePostPost($data['id'], $data['casino_vendor'], $this->tables['CASINO'], 
                                                                   $this->tables['VENDOR'], 
                                                                   $this->tables['CASINO_VENDOR_RELATIVE']);
+        self::updatePostPost($data['id'], $data['casino_payment'], $this->tables['CASINO'], 
+                                                                  $this->tables['PAYMENT'], 
+                                                                  $this->tables['CASINO_PAYMENT_RELATIVE']);
+        self::updatePostPost($data['id'], $data['casino_currency'], $this->tables['CASINO'], 
+                                                                  $this->tables['CURRENCY'], 
+                                                                  $this->tables['CASINO_CURRENCY_RELATIVE']);
+        self::updatePostPost($data['id'], $data['casino_language'], $this->tables['CASINO'], 
+                                                                  $this->tables['LANGUAGE'], 
+                                                                  $this->tables['CASINO_LANGUAGE_RELATIVE']);
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;

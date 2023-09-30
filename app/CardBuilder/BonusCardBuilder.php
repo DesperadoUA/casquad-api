@@ -10,7 +10,6 @@ class BonusCardBuilder extends BaseCardBuilder {
     }
     public function main($arr_posts){
         if(empty($arr_posts)) return [];
-        $posts = [];
         $casinoModel = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
         $casinoCardBuilder = new CasinoCardBuilder();
 

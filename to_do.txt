@@ -1,12 +1,27 @@
 Create new editor for content
 [x] Casino
+    [x] color
+    [x] ref
+    [x] rating
+    [x] advantages
+    [x] content_reviews
+    [x] content_bonuses
+    [x] content_payments
+    [x] content_games
+    [x] label
 [x] Bonus
 [x] Game
-[x] Currency
-[x] Languages
-[x] News
-[x] Vendor
-[x] Payment
+   [x] rtp
+   [x] min_bid
+   [x] scheme
+   [x] lines
+   [x] symbols
+   [x] screenshots
+[] Currency
+[] Languages
+[] News
+[] Vendor
+[] Payment
 [x] Page
 
 /---------------------------/
