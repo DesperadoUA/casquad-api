@@ -36,6 +36,22 @@ return [
         'content_games' => [
             'type' => 'rich_text',
             'default' => ''
+        ],
+        'icon' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'wager' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'bonus_value' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'min_dep' => [
+            'type' => 'string',
+            'default' => ''
         ]
     ],
     'BONUS' => [

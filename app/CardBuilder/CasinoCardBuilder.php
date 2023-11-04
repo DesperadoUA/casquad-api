@@ -14,13 +14,21 @@ class CasinoCardBuilder extends BaseCardBuilder {
         foreach ($arr_posts as $item) {
             $vendor_posts = Relative::getRelativeByPostId($this->tables['CASINO_VENDOR_RELATIVE'], $item->id);
             if(!empty($vendor_posts)) {
-                $vendorPublicPosts = $vendorModel->getPublicPostsByArrId($vendor_posts);
+                $vendorPublicPosts = $vendorCardBuilder->main($vendorModel->getPublicPostsByArrId($vendor_posts));
             }
             $posts[] = [
                 'thumbnail' => $item->thumbnail,
                 'rating' => $item->rating,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'title' => $item->title,
+                'ref' =>  json_decode($item->ref, true),
+                'color' => $item->color,
+                'label' => $item->label,
+                'advantages' => json_decode($item->advantages, true),
+                'wager' => $item->wager,
+                'min_dep' => $item->min_dep,
+                'bonus_value' => $item->bonus_value,
+                'vendors' => $vendorPublicPosts
             ];
         }
         return $posts;
@@ -32,7 +40,9 @@ class CasinoCardBuilder extends BaseCardBuilder {
             $posts[] = [
                     'title' => $item->title,
                     'permalink' => '/'.$item->slug.'/'.$item->permalink,
-                    'thumbnail' => $item->thumbnail
+                    'icon' => $item->icon,
+                    'color' => $item->color,
+                    'rating' => $item->rating
             ];
         }
         return $posts;

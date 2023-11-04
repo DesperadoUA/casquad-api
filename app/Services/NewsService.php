@@ -26,7 +26,13 @@ class NewsService extends FrontBaseService {
 
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0], $this->shemas);
-
+            $settings = [
+                'lang' => $data[0]->lang,
+                'execute' => [$data[0]->id],
+                'limit' => 4
+            ];
+            $posts = $post->getPublicPostsWithOutIds($settings);
+            $this->response['body']['posts'] = $this->cardBuilder->main($posts);
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }

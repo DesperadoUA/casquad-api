@@ -24,8 +24,7 @@ class Posts extends Model
     const LANG = 1;
     const TABLE_WITH_RATING = ['casino_meta', 'vendor_meta'];
 
-    public function getPublicPosts($settings = [])
-    {
+    public function getPublicPosts($settings = []) {
         $limit = isset($settings['limit']) ? $settings['limit'] : self::LIMIT;
         $offset = isset($settings['offset']) ? $settings['offset'] : self::OFFSET;
         $order_by = isset($settings['order_by']) ? $settings['order_by'] : self::ORDER_BY;
@@ -121,21 +120,18 @@ class Posts extends Model
             ->get();
         return $post;
     }
-    public function updateById($id, $data)
-    {
+    public function updateById($id, $data) {
         DB::table($this->table)
             ->where('id', $id)
             ->update($data);
     }
-    public function getByPermalink($permalink)
-    {
+    public function getByPermalink($permalink) {
         $post = DB::table($this->table)
             ->where('permalink', $permalink)
             ->get();
         return $post;
     }
-    public function getPosts($settings = [])
-    {
+    public function getPosts($settings = []) {
         $limit = isset($settings['limit']) ? $settings['limit'] : self::LIMIT;
         $offset = isset($settings['offset']) ? $settings['offset'] : self::OFFSET;
         $order_by = isset($settings['order_by']) ? $settings['order_by'] : self::ORDER_BY;
@@ -155,14 +151,12 @@ class Posts extends Model
             ->get();
         return $posts;
     }
-    public function getTotalCountByLang($lang = self::LANG)
-    {
+    public function getTotalCountByLang($lang = self::LANG) {
         return DB::table($this->table)
             ->where('lang', $lang)
             ->count();
     }
-    public function relativeCategoryInsert($id, $arr_category_id)
-    {
+    public function relativeCategoryInsert($id, $arr_category_id) {
         /*
         if (!empty($arr_category_id)) {
             $data = [];
@@ -177,14 +171,12 @@ class Posts extends Model
         }
         */
     }
-    public function updateMetaById($id, $data)
-    {
+    public function updateMetaById($id, $data) {
         DB::table($this->table_meta)
             ->where('post_id', $id)
             ->update($data);
     }
-    public static function searchByTitle($lang, $db, $str)
-    {
+    public static function searchByTitle($lang, $db, $str) {
         $posts = [];
         if (!empty($str)) {
             $posts = DB::table($db)
@@ -205,8 +197,7 @@ class Posts extends Model
         }
         return $posts;
     }
-    public function getPublicPostsByArrId($arr)
-    {
+    public function getPublicPostsByArrId($arr) {
         $order_by = self::ORDER_BY;
         $order_key = in_array($this->table_meta, self::TABLE_WITH_RATING) ? 'rating' : self::ORDER_KEY;
 

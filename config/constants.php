@@ -9,5 +9,8 @@ return [
         'MAIN' => 'main',
         'SEARCH' => 'search',
         'SITE_MAP' => 'sitemap',
+        'NEWS' => 'news',
+        'BONUSES' => 'bonuses',
+        'GAMES' => 'games'
     ]
 ];

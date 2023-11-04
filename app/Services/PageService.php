@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\Posts;
 use App\Models\Pages;
+use App\Models\Category;
 use App\Serialize\PageSerialize;
 use App\Services\BaseService;
 use App\Models\Cash;
@@ -18,6 +19,11 @@ class PageService extends BaseService {
     const MAIN_PAGE_LIMIT_NEWS = 1000;
     const CATEGORY_LIMIT_CASINO = 1000;
     const CATEGORY_LIMIT_GAME = 1000;
+    const SLIDER_LIMIT_GAME = 10;
+    const SLIDER_LIMIT_BONUS = 10;
+    const SLIDER_LIMIT_NEWS = 10;
+    const SLIDER_LIMIT_CASINO = 10;
+    const ASIDE_LIMIT_BONUS = 5;
     function __construct() {
         parent::__construct();
         $this->response = ['body' => [], 'confirm' => 'error'];
@@ -37,16 +43,54 @@ class PageService extends BaseService {
                 'order_key' => 'rating'
             ];
             $this->response['body']['casino'] = $casinoCardBuilder->main($casino->getPublicPosts($settings));
-            $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
-        }
-        return $this->response;
-    }
-    public function shares(){
-        $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['SHARE']);
-        if(!$data->isEmpty()) {
-            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
+            $casinoSliderSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::SLIDER_LIMIT_CASINO,
+            ];
+            $this->response['body']['casino_slider'] = $casinoCardBuilder->sliderCard($casino->getPublicPosts($casinoSliderSettings));
+            $gameCardBuilder = new GameCardBuilder();
+            $game = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
+            $gameSettings = [
+                'lang' => $data[0]->lang,
+                'limit' => self::SLIDER_LIMIT_GAME
+            ];
+            $this->response['body']['games'] = $gameCardBuilder->main($game->getPublicPosts($gameSettings));
+
+            $bonusCardBuilder = new BonusCardBuilder();
+            $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+            $bonusSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::SLIDER_LIMIT_BONUS,
+            ];
+            $this->response['body']['bonuses'] = $bonusCardBuilder->slider($bonus->getPublicPosts($bonusSettings));
+
+            $topBonusSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::ASIDE_LIMIT_BONUS,
+                'order_key' => 'rating'
+            ];
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
+
+            $newsCardBuilder = new NewsCardBuilder();
+            $news = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
+            $newsSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::SLIDER_LIMIT_NEWS,
+            ];
+            $this->response['body']['news'] = $newsCardBuilder->main($news->getPublicPosts($newsSettings));
+
+            $baseCardBuilder = new BaseCardBuilder();
+            $casinoCategory = new Category([
+                'table' => $this->tables['CASINO'], 
+                'table_meta' => $this->tables['CASINO_META'], 
+                'table_category' => $this->tables['CASINO_CATEGORY'],
+                'table_relative' => $this->tables['CASINO_CATEGORY_RELATIVE']
+            ]);
+            $casinoCategorySettings = [
+                'lang'      => $data[0]->lang,
+            ];
+            $this->response['body']['casino_category'] = $baseCardBuilder->defaultCard($casinoCategory->getPublicPosts($casinoCategorySettings));
+
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }
@@ -54,7 +98,7 @@ class PageService extends BaseService {
     }
     public function bonuses(){
         $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['BONUS']);
+        $data = $post->getPublicPostByUrl($this->config['BONUSES']);
         if(!$data->isEmpty()) {
             $bonusCardBuilder = new BonusCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
@@ -81,16 +125,6 @@ class PageService extends BaseService {
         }
         return $this->response;
     }
-    public function pokers(){
-        $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['POKER']);
-        if(!$data->isEmpty()) {
-            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
-            $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
-        }
-        return $this->response;
-    }
     public function news(){
         $post = new Pages();
         $data = $post->getPublicPostByUrl($this->config['NEWS']);
@@ -109,19 +143,9 @@ class PageService extends BaseService {
         }
         return $this->response;
     }
-    public function bettings(){
-        $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['BETTING']);
-        if(!$data->isEmpty()) {
-            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
-            $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
-        }
-        return $this->response;
-    }
     public function games(){
         $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['GAME']);
+        $data = $post->getPublicPostByUrl($this->config['GAMES']);
         if(!$data->isEmpty()) {
             $gameCardBuilder = new GameCardBuilder();
             $game = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);

@@ -2,6 +2,7 @@
 namespace App\CardBuilder;
 
 class BaseCardBuilder {
+    protected $tables;
     public function __construct() {
         $this->tables = config('tables');
     }
