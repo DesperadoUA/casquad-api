@@ -11,11 +11,8 @@ class Cash extends Model
     {
         parent::__construct([]);
     }
-    public static function get($url){
-        $posts = DB::table(self::TABLE)
-                     ->where('url',  $url)
-                     ->get();
-        return $posts;
+    public static function get($url) {
+        return DB::table(self::TABLE)->where('url',  $url)->get();
     }
     public static function store($url, $data){
         $data_insert = [
@@ -23,6 +20,9 @@ class Cash extends Model
             'data' => $data
         ];
         DB::table(self::TABLE)->insert($data_insert);
+    }
+    public static function updatePost($url, $data) {
+        DB::table(self::TABLE)->where('url', $url)->update(['data' => $data]);
     }
     public static function deleteAll(){
         DB::table(self::TABLE)->truncate();

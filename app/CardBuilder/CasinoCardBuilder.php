@@ -28,7 +28,8 @@ class CasinoCardBuilder extends BaseCardBuilder {
                 'wager' => $item->wager,
                 'min_dep' => $item->min_dep,
                 'bonus_value' => $item->bonus_value,
-                'vendors' => $vendorPublicPosts
+                'vendors' => $vendorPublicPosts,
+                'icon' => $item->icon
             ];
         }
         return $posts;
@@ -42,7 +43,8 @@ class CasinoCardBuilder extends BaseCardBuilder {
                     'permalink' => '/'.$item->slug.'/'.$item->permalink,
                     'icon' => $item->icon,
                     'color' => $item->color,
-                    'rating' => $item->rating
+                    'rating' => $item->rating,
+                    'thumbnail' => $item->thumbnail
             ];
         }
         return $posts;

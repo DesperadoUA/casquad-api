@@ -29,10 +29,12 @@ class NewsService extends FrontBaseService {
             $settings = [
                 'lang' => $data[0]->lang,
                 'execute' => [$data[0]->id],
-                'limit' => 4
+                'limit' => 9
             ];
             $posts = $post->getPublicPostsWithOutIds($settings);
-            $this->response['body']['posts'] = $this->cardBuilder->main($posts);
+            $all_news = $this->cardBuilder->main($posts);
+            $this->response['body']['posts'] = array_slice($all_news, 0, 4);
+            $this->response['body']['last_news'] = array_slice($all_news, 4, 5);
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }

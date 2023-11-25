@@ -68,6 +68,7 @@ class BaseSerialize {
     protected static function frontCommonSerialize($data) {
         $newData = [];
         $newData['id'] = $data->id;
+        $newData['lang'] = $data->lang;
         $newData['title'] = htmlspecialchars_decode($data->title);
         $newData['status'] = $data->status;
         $newData['create_at'] = $data->create_at;

@@ -29,7 +29,7 @@ return [
             'type' => 'rich_text',
             'default' => ''
         ],
-        'content_payments' => [
+        'content_analysis' => [
             'type' => 'rich_text',
             'default' => ''
         ],
@@ -100,7 +100,19 @@ return [
         'screenshots' => [
             'type' => 'json',
             'default' => []
-        ]
+        ],
+        'game_week' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'faq' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'ref' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ],
     'NEWS' => [
         'author' => [
@@ -113,6 +125,10 @@ return [
             'type' => 'number',
             'default' => 0
         ],
+        'icon' => [
+            'type' => 'string',
+            'default' => ''
+        ]
     ],
     'CURRENCY' => [
         'author' => [

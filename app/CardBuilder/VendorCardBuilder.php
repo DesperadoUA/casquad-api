@@ -20,6 +20,19 @@ class VendorCardBuilder extends BaseCardBuilder {
         }
         return $posts;
     }
+    public function filterCard($arr_posts) {
+        if(empty($arr_posts)) return [];
+        $posts = [];
+        foreach ($arr_posts as $item) {
+            $posts[] = [
+                'title' => $item->title,
+                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'thumbnail' => $item->thumbnail,
+                'icon' => $item->icon
+            ];
+        }
+        return $posts;
+    }
     public function vendorCasino($arr_posts) {
         if(empty($arr_posts)) return [];
         $posts = [];

@@ -7,8 +7,10 @@ use App\Models\Cash;
 use App\CardBuilder\VendorCardBuilder;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
+use App\CardBuilder\BonusCardBuilder;
 
 class VendorService extends FrontBaseService {
+    const ASIDE_LIMIT_BONUS = 5; 
     protected $response;
     protected $config;
     function __construct() {
@@ -40,7 +42,16 @@ class VendorService extends FrontBaseService {
             $casinoIds = Relative::getPostIdByRelative($this->tables['CASINO_VENDOR_RELATIVE'], $data[0]->id);
             $casinos = $casinoModel->getPublicPostsByArrId($casinoIds);
             $casinoCardBuilder = new CasinoCardBuilder();
-            $this->response['body']['casinos'] = $casinoCardBuilder->sliderCard($casinos);
+            $this->response['body']['casinos'] = $casinoCardBuilder->main($casinos);
+
+            $bonusCardBuilder = new BonusCardBuilder();
+            $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+            $topBonusSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::ASIDE_LIMIT_BONUS,
+                'order_key' => 'rating'
+            ];
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
 
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));

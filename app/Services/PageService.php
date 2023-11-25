@@ -2,6 +2,7 @@
 namespace App\Services;
 use App\Models\Posts;
 use App\Models\Pages;
+use App\Models\Relative;
 use App\Models\Category;
 use App\Serialize\PageSerialize;
 use App\Services\BaseService;
@@ -11,6 +12,7 @@ use App\CardBuilder\BonusCardBuilder;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
 use App\CardBuilder\NewsCardBuilder;
+use App\CardBuilder\VendorCardBuilder;
 class PageService extends BaseService {
     protected $response;
     protected $config;
@@ -24,6 +26,7 @@ class PageService extends BaseService {
     const SLIDER_LIMIT_NEWS = 10;
     const SLIDER_LIMIT_CASINO = 10;
     const ASIDE_LIMIT_BONUS = 5;
+    const FILTER_LIMIT_VENDORS = 25;
     function __construct() {
         parent::__construct();
         $this->response = ['body' => [], 'confirm' => 'error'];
@@ -102,13 +105,28 @@ class PageService extends BaseService {
         if(!$data->isEmpty()) {
             $bonusCardBuilder = new BonusCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
-            $bonusModel = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
-            $settings = [
-                'lang'      => $data[0]->lang,
-                'limit'     => self::MAIN_PAGE_LIMIT_BONUSES,
-                'order_key' => 'rating'
+            $bonusCategory = new Category([
+                'table' => $this->tables['BONUS'], 
+                'table_meta' => $this->tables['BONUS_META'], 
+                'table_category' => $this->tables['BONUS_CATEGORY'],
+                'table_relative' => $this->tables['BONUS_CATEGORY_RELATIVE']
+            ]);
+            $bonusCategorySettings = [
+                'lang' => $data[0]->lang,
             ];
-            $this->response['body']['bonus'] = $bonusCardBuilder->main($bonusModel->getPublicPosts($settings));
+            $this->response['body']['bonus_category'] = [];
+            $bonus_category = $bonusCategory->getPublicPosts($bonusCategorySettings);
+            foreach($bonus_category as $item) {
+                $posts = Relative::getPostIdByRelative($this->tables['BONUS_CATEGORY_RELATIVE'], $item->id);
+                if(!empty($posts)) {
+                    $post = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+                    $this->response['body']['bonus_category'][] = [
+                        'title' => $item->title,
+                        'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                        'posts' => $bonusCardBuilder->main($post->getPublicPostsByArrId(array_slice($posts, 0, 3)))
+                    ];
+                }
+            }
 
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
@@ -143,7 +161,7 @@ class PageService extends BaseService {
         }
         return $this->response;
     }
-    public function games(){
+    public function games() {
         $post = new Pages();
         $data = $post->getPublicPostByUrl($this->config['GAMES']);
         if(!$data->isEmpty()) {
@@ -154,7 +172,26 @@ class PageService extends BaseService {
                 'lang'      => $data[0]->lang,
                 'limit'     => self::CATEGORY_LIMIT_GAME
             ];
-            $this->response['body']['games'] = $gameCardBuilder->main($game->getPublicPosts($settings));
+            $all_games = $gameCardBuilder->main($game->getPublicPosts($settings));
+            for($i=0; $i<count($all_games); $i++) {
+                if($all_games[$i]['game_week']) {
+                    $this->response['body']['game_week'][] = $all_games[$i];
+                    break;
+                }
+            }
+            if(empty($this->response['body']['game_week']) and !empty($all_games)) $this->response['body']['game_week'] = $all_games[0];
+
+            $this->response['body']['games_week_list'] = array_splice($all_games, 0, 10);
+            $this->response['body']['games'] = $all_games;
+
+            $vendorCardBuilder = new VendorCardBuilder();
+            $vendorModel = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
+            $vendorSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::FILTER_LIMIT_VENDORS
+            ];
+            $this->response['body']['vendors'] = $vendorCardBuilder->filterCard($vendorModel->getPublicPosts($vendorSettings));
+
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }

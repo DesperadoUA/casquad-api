@@ -27,7 +27,8 @@ class GameCardBuilder extends BaseCardBuilder {
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
-                'vendor' => $vendor
+                'vendor' => $vendor,
+                'game_week' => $item->game_week
             ];
         }
         return $posts;

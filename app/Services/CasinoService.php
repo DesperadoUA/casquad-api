@@ -2,6 +2,8 @@
 namespace App\Services;
 use App\Models\Posts;
 use App\Models\Relative;
+use App\Models\Category;
+use App\Models\Cash;
 use App\Services\FrontBaseService;
 use App\CardBuilder\VendorCardBuilder;
 use App\CardBuilder\PaymentCardBuilder;
@@ -9,7 +11,8 @@ use App\CardBuilder\CurrencyCardBuilder;
 use App\CardBuilder\BonusCardBuilder;
 use App\CardBuilder\LanguageCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
-use App\Models\Cash;
+use App\CardBuilder\GameCardBuilder;
+use App\CardBuilder\BaseCardBuilder;
 
 class CasinoService extends FrontBaseService {
     protected $response;
@@ -18,6 +21,7 @@ class CasinoService extends FrontBaseService {
     const CATEGORY_LIMIT_CASINO = 1000;
     const CATEGORY_LIMIT_GAME = 1000;
     const SLUG = 'casino';
+    const ASIDE_LIMIT_BONUS = 5;
     function __construct() {
         parent::__construct();
         $this->response = ['body' => [], 'confirm' => 'error'];
@@ -43,7 +47,7 @@ class CasinoService extends FrontBaseService {
                 $CardBuilder = new VendorCardBuilder();
                 $Model = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $this->response['body']['vendors'] = $CardBuilder->vendorCasino($publicPosts);
+                $this->response['body']['vendors'] = $CardBuilder->filterCard($publicPosts);
             }
 
             $this->response['body']['payments'] = [];
@@ -82,8 +86,44 @@ class CasinoService extends FrontBaseService {
                 $this->response['body']['bonuses'] = $CardBuilder->main($publicPosts);
             }
 
+            $this->response['body']['games'] = [];
+            $arr_posts = Relative::getPostIdByRelative($this->tables['GAME_CASINO_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new GameCardBuilder();
+                $Model = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $this->response['body']['games'] = $CardBuilder->main($publicPosts);
+            }
+
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function category($id) {
+        $parentData = parent::category($id);
+        if($parentData['confirm'] !== 'error') {
+            $bonusCardBuilder = new BonusCardBuilder();
+            $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+            $topBonusSettings = [
+                'lang'      => $parentData['body']['lang'],
+                'limit'     => self::ASIDE_LIMIT_BONUS,
+                'order_key' => 'rating'
+            ];
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
+
+            $baseCardBuilder = new BaseCardBuilder();
+            $casinoCategory = new Category([
+                'table' => $this->tables['CASINO'], 
+                'table_meta' => $this->tables['CASINO_META'], 
+                'table_category' => $this->tables['CASINO_CATEGORY'],
+                'table_relative' => $this->tables['CASINO_CATEGORY_RELATIVE']
+            ]);
+            $casinoCategorySettings = [
+                'lang' => $parentData['body']['lang'],
+            ];
+            $this->response['body']['casino_category'] = $baseCardBuilder->defaultCard($casinoCategory->getPublicPosts($casinoCategorySettings));
+            Cash::updatePost(url()->current(), json_encode($this->response));
         }
         return $this->response;
     }

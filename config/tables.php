@@ -20,6 +20,7 @@ return [
     'GAME_CATEGORY' => 'game_category',
     'GAME_CATEGORY_RELATIVE' => 'game_category_relative',
     'GAME_VENDOR_RELATIVE' => 'game_vendor_relative',
+    'GAME_CASINO_RELATIVE' => 'game_casino_relative',
 
     'NEWS' => 'news',
     'NEWS_META' => 'news_meta',

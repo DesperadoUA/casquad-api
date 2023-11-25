@@ -68,9 +68,7 @@ class Posts extends Model
             ->get();
         return $posts;
     }
-    public function getPublicPostByUrl($url)
-    {
-
+    public function getPublicPostByUrl($url) {
         $t1 = $this->table;
         $t2 = $this->table_meta;
 
@@ -82,15 +80,13 @@ class Posts extends Model
             ->get();
         return $post;
     }
-    public function insert($common_data, $meta_data)
-    {
+    public function insert($common_data, $meta_data) {
         $insert_id = DB::table($this->table)->insertGetId($common_data);
         $meta_data['post_id'] = $insert_id;
         DB::table($this->table_meta)->insert($meta_data);
         return $insert_id;
     }
-    public function getTotalCountPublicByLang($lang = self::LANG)
-    {
+    public function getTotalCountPublicByLang($lang = self::LANG) {
         /*
         return DB::table(self::TABLE)
             ->where('status', 'public')
