@@ -13,4 +13,5 @@ Route::namespace('Api')->group(function () {
     Route::get('pages/'.config('constants.PAGES.SITE_MAP'), 'PageController@siteMap')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.SEARCH'), 'PageController@search');
     Route::get(config('constants.PAGES.SEARCH'), 'PageController@search');
+    Route::get('pages/{id}', 'PageController@default')->middleware('cash'); 
 });

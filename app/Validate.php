@@ -7,7 +7,7 @@ namespace App;
 class Validate
 {
     const CONFIG_EDITOR = [
-        'TEXT_DECODE' => ['image', 'input', 'rich_text'],
+        'TEXT_DECODE' => ['image', 'input', 'rich_text', 'textarea'],
         'JSON_DECODE' => ['two_input_image', 'multiple_menu', 'multiple_two_input', 'multiple_input_text'],
     ];
     public static function textValidate($str){

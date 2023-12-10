@@ -203,7 +203,7 @@ class PageService extends BaseService {
             $this->response['confirm'] = 'ok';
         } else {
             $arrDb = [
-                'CASINO', 'BONUS', 'POKER', 'GAME', 'BETTING', 'NEWS', 'VENDOR', 'SHARES'
+                'CASINO', 'GAME', 'NEWS', 'VENDOR'
             ];
             $posts = [];
             foreach($arrDb as $db) {
@@ -211,6 +211,7 @@ class PageService extends BaseService {
             }
             $this->response['body']['posts'] = $posts;
             $this->response['confirm'] = 'ok';
+            $this->response['search'] = 'true';
         }
         return $this->response;
     }
@@ -243,6 +244,16 @@ class PageService extends BaseService {
         $this->response['confirm'] = 'ok';
         $this->response['test'] = $data_save;
         Cash::deleteAll();
+        return $this->response;
+    }
+    public function default($id) {
+        $post = new Pages();
+        $data = $post->getPublicPostByUrl($id);
+        if(!$data->isEmpty()) {
+            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->current(), json_encode($this->response));
+        }
         return $this->response;
     }
 }
