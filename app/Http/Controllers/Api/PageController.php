@@ -70,7 +70,7 @@ class PageController extends Controller
             $data[] = [
                 'url'        => $item->permalink === '/' ? $item->permalink : '/'.$item->permalink,
                 'lastmod'    => $item->update_at,
-                'changefreq' => 'daily',
+                'changefreq' => $item->permalink === '/' ? 'weekly' : 'yearly',
                 'priority'   => $item->permalink === '/' ? 1 : $priority
             ];
         }
@@ -91,7 +91,7 @@ class PageController extends Controller
                 $data[] = [
                     'url'        => '/'.$item['slug'].'/'.$post->permalink,
                     'lastmod'    => $post->update_at,
-                    'changefreq' => 'daily',
+                    'changefreq' => 'monthly',
                     'priority'   => 0.8
                 ];
             }

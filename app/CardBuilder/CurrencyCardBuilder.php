@@ -15,7 +15,8 @@ class CurrencyCardBuilder extends BaseCardBuilder {
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
                 'create_at' => $item->create_at,
-                'short_desc' => $item->short_desc
+                'short_desc' => $item->short_desc,
+                'rating' => $item->rating
             ];
         }
         return $posts;

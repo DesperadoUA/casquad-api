@@ -128,6 +128,10 @@ return [
         'icon' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'banner' => [
+            'type' => 'string',
+            'default' => ''
         ]
     ],
     'CURRENCY' => [
@@ -135,17 +139,29 @@ return [
             'type' => 'string',
             'default' => ''
         ],
+        'rating' => [
+            'type' => 'number',
+            'default' => 0
+        ],
     ],
     'LANGUAGE' => [
         'author' => [
             'type' => 'string',
             'default' => ''
         ],
+        'rating' => [
+            'type' => 'number',
+            'default' => 0
+        ],
     ],
     'PAYMENT' => [
         'author' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'rating' => [
+            'type' => 'number',
+            'default' => 0
         ],
     ]
 ];

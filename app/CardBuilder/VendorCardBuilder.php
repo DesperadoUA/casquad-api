@@ -28,7 +28,8 @@ class VendorCardBuilder extends BaseCardBuilder {
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
-                'icon' => $item->icon
+                'icon' => $item->icon,
+                'rating' => $item->rating
             ];
         }
         return $posts;

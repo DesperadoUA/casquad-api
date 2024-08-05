@@ -12,6 +12,7 @@ return [
     'CASINO_CATEGORY_RELATIVE' => 'casino_category_relative',
     'CASINO_VENDOR_RELATIVE' => 'casino_vendor_relative',
     'CASINO_PAYMENT_RELATIVE' => 'casino_payment_relative',
+    'CASINO_DEPOSIT_RELATIVE' => 'casino_deposit_relative',
     'CASINO_CURRENCY_RELATIVE' => 'casino_currency_relative',
     'CASINO_LANGUAGE_RELATIVE' => 'casino_language_relative',
 

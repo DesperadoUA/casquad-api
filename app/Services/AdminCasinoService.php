@@ -29,6 +29,9 @@ class AdminCasinoService extends AdminPostService {
             $this->response['body']['casino_payment'] = self::relativePostPost($id, $this->tables['CASINO'], 
                                                                                    $this->tables['PAYMENT'], 
                                                                                    $this->tables['CASINO_PAYMENT_RELATIVE']);
+            $this->response['body']['casino_deposit'] = self::relativePostPost($id, $this->tables['CASINO'], 
+                                                                                   $this->tables['PAYMENT'], 
+                                                                                   $this->tables['CASINO_DEPOSIT_RELATIVE']);
             $this->response['body']['casino_currency'] = self::relativePostPost($id, $this->tables['CASINO'], 
                                                                                    $this->tables['CURRENCY'], 
                                                                                    $this->tables['CASINO_CURRENCY_RELATIVE']);
@@ -55,6 +58,9 @@ class AdminCasinoService extends AdminPostService {
         self::updatePostPost($data['id'], $data['casino_payment'], $this->tables['CASINO'], 
                                                                   $this->tables['PAYMENT'], 
                                                                   $this->tables['CASINO_PAYMENT_RELATIVE']);
+        self::updatePostPost($data['id'], $data['casino_deposit'], $this->tables['CASINO'], 
+                                                                  $this->tables['PAYMENT'], 
+                                                                  $this->tables['CASINO_DEPOSIT_RELATIVE']);
         self::updatePostPost($data['id'], $data['casino_currency'], $this->tables['CASINO'], 
                                                                   $this->tables['CURRENCY'], 
                                                                   $this->tables['CASINO_CURRENCY_RELATIVE']);

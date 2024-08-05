@@ -47,7 +47,11 @@ class CasinoService extends FrontBaseService {
                 $CardBuilder = new VendorCardBuilder();
                 $Model = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $this->response['body']['vendors'] = $CardBuilder->filterCard($publicPosts);
+                $posts = $CardBuilder->filterCard($publicPosts);
+                usort($posts, function($a, $b) {
+                    return -((int)$a['rating'] - (int)$b['rating']);
+                });
+                $this->response['body']['vendors'] = $posts;
             }
 
             $this->response['body']['payments'] = [];
@@ -56,7 +60,24 @@ class CasinoService extends FrontBaseService {
                 $CardBuilder = new PaymentCardBuilder();
                 $Model = new Posts(['table' => $this->tables['PAYMENT'], 'table_meta' => $this->tables['PAYMENT_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $this->response['body']['payments'] = $CardBuilder->main($publicPosts);
+                $posts = $CardBuilder->main($publicPosts);
+                usort($posts, function($a, $b) {
+                    return -((int)$a['rating'] - (int)$b['rating']);
+                });
+                $this->response['body']['payments'] = $posts;
+            }
+
+            $this->response['body']['deposit'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['CASINO_DEPOSIT_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new PaymentCardBuilder();
+                $Model = new Posts(['table' => $this->tables['PAYMENT'], 'table_meta' => $this->tables['PAYMENT_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                usort($posts, function($a, $b) {
+                    return -((int)$a['rating'] - (int)$b['rating']);
+                });
+                $this->response['body']['deposit'] = $posts;
             }
 
             $this->response['body']['currencies'] = [];
@@ -65,7 +86,11 @@ class CasinoService extends FrontBaseService {
                 $CardBuilder = new CurrencyCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CURRENCY'], 'table_meta' => $this->tables['CURRENCY_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $this->response['body']['currencies'] = $CardBuilder->main($publicPosts);
+                $posts = $CardBuilder->main($publicPosts);
+                usort($posts, function($a, $b) {
+                    return -((int)$a['rating'] - (int)$b['rating']);
+                });
+                $this->response['body']['currencies'] = $posts;
             }
 
             $this->response['body']['languages'] = [];
@@ -74,7 +99,11 @@ class CasinoService extends FrontBaseService {
                 $CardBuilder = new LanguageCardBuilder();
                 $Model = new Posts(['table' => $this->tables['LANGUAGE'], 'table_meta' => $this->tables['LANGUAGE_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $this->response['body']['languages'] = $CardBuilder->main($publicPosts);
+                $posts = $CardBuilder->main($publicPosts);
+                usort($posts, function($a, $b) {
+                    return -((int)$a['rating'] - (int)$b['rating']);
+                });
+                $this->response['body']['languages'] = $posts;
             }
 
             $this->response['body']['bonuses'] = [];
