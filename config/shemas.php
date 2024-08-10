@@ -70,6 +70,10 @@ return [
         'wagering' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'banner' => [
+            'type' => 'string',
+            'default' => ''
         ]
     ],
     'GAME' => [

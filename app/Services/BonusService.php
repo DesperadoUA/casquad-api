@@ -32,7 +32,17 @@ class BonusService extends FrontBaseService {
             $casinoCardBuilder = new CasinoCardBuilder();
             $casinoIds = Relative::getRelativeByPostId($this->tables['BONUS_CASINO_RELATIVE'], $data[0]->id);
             $casino = $casinoModel->getPublicPostsByArrId($casinoIds);
-            $this->response['body']['casino'] = $casino->isEmpty() ? [] : $casinoCardBuilder->defaultCard($casino)[0];
+            $this->response['body']['casino'] = $casino->isEmpty() ? [] : $casinoCardBuilder->bonusCard($casino)[0];
+            $this->response['body']['bonuses'] = [];
+            $arr_posts = Relative::getPostIdByRelative($this->tables['BONUS_CASINO_RELATIVE'], $casino[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new BonusCardBuilder();
+                $Model = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $filters = [];
+                foreach($publicPosts as $item) if($item->id !== $data[0]->id) $filters[] = $item;
+                $this->response['body']['bonuses'] = $CardBuilder->main($filters);
+            }
             if(!empty($this->response['body']['characters'])) {
                 $bonus_characters = [];
                 foreach($this->response['body']['characters'] as $item) {

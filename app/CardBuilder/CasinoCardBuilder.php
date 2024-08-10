@@ -49,4 +49,17 @@ class CasinoCardBuilder extends BaseCardBuilder {
         }
         return $posts;
     }
+    public function bonusCard($arr_posts) {
+        if(empty($arr_posts)) return [];
+        $posts = [];
+        foreach ($arr_posts as $item) {
+            $posts[] = [
+                'title' => $item->title,
+                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'thumbnail' => $item->thumbnail,
+                'ref' => json_decode($item->ref, true),
+            ];
+        }
+        return $posts;
+    }
 }
