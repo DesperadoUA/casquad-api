@@ -188,7 +188,8 @@ class PageService extends BaseService {
             $vendorModel = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
             $vendorSettings = [
                 'lang'      => $data[0]->lang,
-                'limit'     => self::FILTER_LIMIT_VENDORS
+                'limit'     => self::FILTER_LIMIT_VENDORS,
+                'order_key' => 'rating'
             ];
             $this->response['body']['vendors'] = $vendorCardBuilder->filterCard($vendorModel->getPublicPosts($vendorSettings));
 
