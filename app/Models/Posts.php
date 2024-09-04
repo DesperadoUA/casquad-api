@@ -22,7 +22,7 @@ class Posts extends Model
     const ORDER_BY = 'DESC';
     const ORDER_KEY = 'create_at';
     const LANG = 1;
-    const TABLE_WITH_RATING = ['casino_meta', 'vendor_meta'];
+    const TABLE_WITH_RATING = ['casino_meta', 'vendor_meta', 'bonus_meta'];
 
     public function getPublicPosts($settings = []) {
         $limit = isset($settings['limit']) ? $settings['limit'] : self::LIMIT;

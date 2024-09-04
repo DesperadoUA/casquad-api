@@ -24,6 +24,7 @@ class BaseSerialize {
         $newData['post_type']   = $data->post_type;
         $newData['permalink']   = $data->permalink;
         $newData['lang']        = $data->lang;
+        $newData['social_img']  = $data->social_img;
         return $newData;
     }
     protected static function commonValidateInsert($data) {
@@ -62,6 +63,13 @@ class BaseSerialize {
                 $newData['lang'] = self::ARR_LANG['ru'];
             }
         }
+         if(isset($data['social_img'])) {
+            if(empty($data['social_img'])) $newData['social_img'] = config('constants.DEFAULT_SRC');
+            else $newData['social_img'] = $data['social_img'];
+        }
+        else {
+            $newData['social_img'] = config('constants.DEFAULT_SRC');
+        }
         $newData['post_type']  = isset($data['post_type']) ? $data['post_type'] : self::DEFAULT_POST_TYPE;
         return $newData;
     }
@@ -88,6 +96,7 @@ class BaseSerialize {
         $newData['thumbnail'] = $data->thumbnail;
         $newData['permalink'] = $data->permalink;
         $newData['post_type'] = $data->post_type;
+        $newData['social_img'] = empty($data->social_img) ? config('constants.DEFAULT_SRC') : $data->social_img;
         return $newData;
     }
 }
