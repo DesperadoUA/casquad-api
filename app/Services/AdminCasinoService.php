@@ -38,6 +38,9 @@ class AdminCasinoService extends AdminPostService {
             $this->response['body']['casino_language'] = self::relativePostPost($id, $this->tables['CASINO'], 
                                                                                    $this->tables['LANGUAGE'], 
                                                                                    $this->tables['CASINO_LANGUAGE_RELATIVE']);
+            $this->response['body']['casino_casino'] = self::relativePostPost($id, $this->tables['CASINO'], 
+                                                                                   $this->tables['CASINO'], 
+                                                                                   $this->tables['CASINO_CASINO_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -67,6 +70,9 @@ class AdminCasinoService extends AdminPostService {
         self::updatePostPost($data['id'], $data['casino_language'], $this->tables['CASINO'], 
                                                                   $this->tables['LANGUAGE'], 
                                                                   $this->tables['CASINO_LANGUAGE_RELATIVE']);
+        self::updatePostPost($data['id'], $data['casino_casino'], $this->tables['CASINO'], 
+                                                                  $this->tables['CASINO'], 
+                                                                  $this->tables['CASINO_CASINO_RELATIVE']);
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;

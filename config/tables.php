@@ -15,6 +15,7 @@ return [
     'CASINO_DEPOSIT_RELATIVE' => 'casino_deposit_relative',
     'CASINO_CURRENCY_RELATIVE' => 'casino_currency_relative',
     'CASINO_LANGUAGE_RELATIVE' => 'casino_language_relative',
+    'CASINO_CASINO_RELATIVE' => 'casino_casino_relative',
 
     'GAME' => 'games',
     'GAME_META' => 'game_meta',
@@ -27,6 +28,7 @@ return [
     'NEWS_META' => 'news_meta',
     'NEWS_CATEGORY' => 'news_category',
     'NEWS_CATEGORY_RELATIVE' => 'news_category_relative',
+    'NEWS_CASINO_RELATIVE' => 'news_casino_relative',
 
     'VENDOR' => 'vendors',
     'VENDOR_META' => 'vendor_meta',

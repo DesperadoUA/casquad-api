@@ -1,9 +1,11 @@
 <?php
 namespace App\Services;
 use App\Models\Posts;
+use App\Models\Relative;
 use App\Services\FrontBaseService;
 use App\Models\Cash;
 use App\CardBuilder\NewsCardBuilder;
+use App\CardBuilder\CasinoCardBuilder;
 
 class NewsService extends FrontBaseService {
     protected $response;
@@ -35,6 +37,15 @@ class NewsService extends FrontBaseService {
             $all_news = $this->cardBuilder->main($posts);
             $this->response['body']['posts'] = array_slice($all_news, 0, 4);
             $this->response['body']['last_news'] = array_slice($all_news, 4, 5);
+
+            $this->response['body']['casinos'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['NEWS_CASINO_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new CasinoCardBuilder();
+                $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
+            }
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }

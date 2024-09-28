@@ -124,6 +124,15 @@ class CasinoService extends FrontBaseService {
                 $this->response['body']['games'] = $CardBuilder->main($publicPosts);
             }
 
+            $this->response['body']['casinos'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['CASINO_CASINO_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new CasinoCardBuilder();
+                $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
+            }
+
             $this->response['confirm'] = 'ok';
             Cash::store(url()->current(), json_encode($this->response));
         }
