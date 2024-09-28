@@ -154,6 +154,12 @@ class AdminCategoryService extends BaseService {
         else {
             $newData['faq'] = json_encode([]);
         }
+       if(isset($data['social_img'])) {
+            if(empty($data['social_img'])) $newData['social_img'] = config('constants.DEFAULT_SRC');
+            else $newData['social_img'] = $data['social_img'];
+        } else {
+            $newData['social_img'] = config('constants.DEFAULT_SRC');
+        }
 
         return $newData;
     }
@@ -292,6 +298,12 @@ class AdminCategoryService extends BaseService {
         }
         else {
             $newData['faq'] = json_encode([]);
+        }
+        if(isset($data['social_img'])) {
+            if(empty($data['social_img'])) $newData['social_img'] = config('constants.DEFAULT_SRC');
+            else $newData['social_img'] = $data['social_img'];
+        } else {
+            $newData['social_img'] = config('constants.DEFAULT_SRC');
         }
         return $newData;
     }
