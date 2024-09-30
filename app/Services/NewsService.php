@@ -28,6 +28,9 @@ class NewsService extends FrontBaseService {
 
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0], $this->shemas);
+            if(empty($this->response['body']['icon'])) {
+                $this->response['body']['icon'] = $this->response['body']['thumbnail'];
+            }
             $settings = [
                 'lang' => $data[0]->lang,
                 'execute' => [$data[0]->id],

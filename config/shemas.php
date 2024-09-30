@@ -123,6 +123,10 @@ return [
             'type' => 'string',
             'default' => ''
         ],
+        'icon' => [
+            'type' => 'string',
+            'default' => ''
+        ],
     ],
     'VENDOR' => [
         'rating' => [

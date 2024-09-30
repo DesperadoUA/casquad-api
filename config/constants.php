@@ -11,6 +11,6 @@ return [
         'SITE_MAP' => 'sitemap',
         'NEWS' => 'news',
         'BONUSES' => 'bonuses',
-        'GAMES' => 'games'
+        'GAMES' => 'slots'
     ]
 ];
