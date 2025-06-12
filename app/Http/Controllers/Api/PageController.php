@@ -34,7 +34,7 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function main(){ 
+    public function main(){
         return response()->json($this->service->main());
     }
     public function shares(){
@@ -81,6 +81,7 @@ class PageController extends Controller
             ['db' => $this->tables['GAME'], 'slug' => 'game'],
             ['db' => $this->tables['VENDOR'], 'slug' => 'vendor'],
             ['db' => $this->tables['NEWS'], 'slug' => 'news'],
+            ['db' => $this->tables['BONUS'], 'slug' => 'bonus'],
         ];
         foreach ($arr_db as $item) {
             $posts = DB::table($item['db'])

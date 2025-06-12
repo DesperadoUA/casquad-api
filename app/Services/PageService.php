@@ -57,7 +57,7 @@ class PageService extends BaseService {
                 'lang' => $data[0]->lang,
                 'limit' => self::SLIDER_LIMIT_GAME
             ];
-            $this->response['body']['games'] = $gameCardBuilder->main($game->getPublicPosts($gameSettings));
+            $this->response['body']['games'] = $gameCardBuilder->slider($game->getPublicPosts($gameSettings));
 
             $bonusCardBuilder = new BonusCardBuilder();
             $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
@@ -84,8 +84,8 @@ class PageService extends BaseService {
 
             $baseCardBuilder = new BaseCardBuilder();
             $casinoCategory = new Category([
-                'table' => $this->tables['CASINO'], 
-                'table_meta' => $this->tables['CASINO_META'], 
+                'table' => $this->tables['CASINO'],
+                'table_meta' => $this->tables['CASINO_META'],
                 'table_category' => $this->tables['CASINO_CATEGORY'],
                 'table_relative' => $this->tables['CASINO_CATEGORY_RELATIVE']
             ]);
@@ -106,8 +106,8 @@ class PageService extends BaseService {
             $bonusCardBuilder = new BonusCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
             $bonusCategory = new Category([
-                'table' => $this->tables['BONUS'], 
-                'table_meta' => $this->tables['BONUS_META'], 
+                'table' => $this->tables['BONUS'],
+                'table_meta' => $this->tables['BONUS_META'],
                 'table_category' => $this->tables['BONUS_CATEGORY'],
                 'table_relative' => $this->tables['BONUS_CATEGORY_RELATIVE']
             ]);

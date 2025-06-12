@@ -11,7 +11,7 @@ class AdminUploadsController extends Controller
 {
     const DIR_DOWNLOADS = '/downloads/';
     const DIR = '/downloads/';
-    const IMG_TYPE = ['png', 'jpg', 'jpeg'];
+    const IMG_TYPE = ['png', 'jpg', 'jpeg', 'webp'];
     const REPLACE = ['', '', ''];
     public function index(Request $request)
     {

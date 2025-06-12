@@ -28,7 +28,21 @@ class GameCardBuilder extends BaseCardBuilder {
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
                 'vendor' => $vendor,
-                'game_week' => $item->game_week
+                'game_week' => $item->game_week,
+                'slider_img' => $item->slider_img
+            ];
+        }
+        return $posts;
+    }
+    public function slider($arr_posts){
+        if(empty($arr_posts)) return [];
+        $posts = [];
+        foreach ($arr_posts as $item) {
+            $thumbnail = empty($item->slider_img) ? $item->thumbnail : $item->slider_img;
+            $posts[] = [
+                'title' => $item->title,
+                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'thumbnail' => $thumbnail
             ];
         }
         return $posts;

@@ -13,7 +13,7 @@ class NewsCardBuilder extends BaseCardBuilder {
             $posts[] = [
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
-                'thumbnail' => $item->thumbnail,
+                'thumbnail' => empty($item->preview_img) ? $item->thumbnail : $item->preview_img,
                 'icon' => empty($item->icon) ? $item->thumbnail : $item->icon,
                 'create_at' => $item->create_at,
                 'short_desc' => $item->short_desc

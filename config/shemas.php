@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     'CASINO' => [
         'label' => [
@@ -50,6 +50,14 @@ return [
             'default' => ''
         ],
         'min_dep' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'video' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'video_title' => [
             'type' => 'string',
             'default' => ''
         ]
@@ -117,6 +125,18 @@ return [
             'type' => 'json',
             'default' => []
         ],
+        'video' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'video_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'slider_img' => [
+            'type' => 'string',
+            'default' => ''
+        ]
     ],
     'NEWS' => [
         'author' => [
@@ -127,6 +147,10 @@ return [
             'type' => 'string',
             'default' => ''
         ],
+        'preview_img' => [
+            'type' => 'string',
+            'default' => ''
+        ]
     ],
     'VENDOR' => [
         'rating' => [
@@ -138,6 +162,14 @@ return [
             'default' => ''
         ],
         'banner' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'video' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'video_title' => [
             'type' => 'string',
             'default' => ''
         ]

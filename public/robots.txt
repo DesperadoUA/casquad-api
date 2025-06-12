@@ -1,2 +1,7 @@
 User-agent: *
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.svg$
 Disallow: /
