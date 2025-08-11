@@ -60,6 +60,10 @@ return [
         'video_title' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'reviews' => [
+            'type' => 'json',
+            'default' => []
         ]
     ],
     'BONUS' => [
@@ -136,6 +140,10 @@ return [
         'slider_img' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'reviews' => [
+            'type' => 'json',
+            'default' => []
         ]
     ],
     'NEWS' => [
@@ -172,6 +180,10 @@ return [
         'video_title' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'reviews' => [
+            'type' => 'json',
+            'default' => []
         ]
     ],
     'CURRENCY' => [
@@ -202,6 +214,12 @@ return [
         'rating' => [
             'type' => 'number',
             'default' => 0
+        ],
+    ],
+    'AUTHOR' => [
+        'social' => [
+           'type' => 'string',
+           'default' => ''
         ],
     ]
 ];

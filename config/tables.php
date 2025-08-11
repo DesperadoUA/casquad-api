@@ -50,5 +50,10 @@ return [
     'CURRENCY_CATEGORY' => 'currency_category',
     'CURRENCY_CATEGORY_RELATIVE' => 'currency_category_relative',
 
+    'AUTHOR' => 'authors',
+    'AUTHOR_META' => 'author_meta',
+    'AUTHOR_CATEGORY' => 'author_category',
+    'AUTHOR_CATEGORY_RELATIVE' => 'author_category_relative',
+
     'PAGES' => 'pages'
 ];

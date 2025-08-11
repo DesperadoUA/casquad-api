@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Bonuses extends Migration
+class Authors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class Bonuses extends Migration
      */
     public function up()
     {
-        Schema::create('bonuses', function (Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('post_type')->default('bonus');
+            $table->string('post_type')->default('author');
             $table->enum('status', ['public', 'hide', 'basket'])->default('public');
             $table->string('permalink');
-            $table->string('slug')->default('bonus');
+            $table->string('slug')->default('author');
             $table->string('title');
             $table->string('thumbnail', 300);
             $table->string('short_desc', 500);
@@ -41,6 +41,6 @@ class Bonuses extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bonuses');
+        Schema::dropIfExists('authors');
     }
 }
