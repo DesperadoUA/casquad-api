@@ -12,10 +12,13 @@ class BonusCardBuilder extends BaseCardBuilder {
         if(empty($arr_posts)) return [];
         $casinoModel = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
         $casinoCardBuilder = new CasinoCardBuilder();
-
+        $posts = [];
         foreach ($arr_posts as $item) {
             $casinoIds = Relative::getRelativeByPostId($this->tables['BONUS_CASINO_RELATIVE'], $item->id);
             $casino = $casinoModel->getPublicPostsByArrId($casinoIds);
+            $refs = (array)json_decode($item->ref, true);
+            $ref_list = [];
+            foreach($refs as $ref) $ref_list[$ref['value_2']] = $ref['value_1'];
             $posts[] = [
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
@@ -25,7 +28,8 @@ class BonusCardBuilder extends BaseCardBuilder {
                 'rating' => $item->rating,
                 'bonus' => $item->bonus,
                 'min_deposit' => $item->min_deposit,
-                'wagering' => $item->wagering
+                'wagering' => $item->wagering,
+                'ref' => $ref_list
             ];
         }
         return $posts;
@@ -34,10 +38,13 @@ class BonusCardBuilder extends BaseCardBuilder {
         if(empty($arr_posts)) return [];
         $casinoModel = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
         $casinoCardBuilder = new CasinoCardBuilder();
-
+        $posts = [];
         foreach ($arr_posts as $item) {
             $casinoIds = Relative::getRelativeByPostId($this->tables['BONUS_CASINO_RELATIVE'], $item->id);
             $casino = $casinoModel->getPublicPostsByArrId($casinoIds);
+            $refs = (array)json_decode($item->ref, true);
+            $ref_list = [];
+            foreach($refs as $ref) $ref_list[$ref['value_2']] = $ref['value_1'];
             $posts[] = [
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
@@ -45,7 +52,8 @@ class BonusCardBuilder extends BaseCardBuilder {
                 'short_desc' => $item->short_desc,
                 'bonus' => $item->bonus,
                 'casino' => $casino->isEmpty() ? [] : $casinoCardBuilder->main($casino)[0],
-                'rating' => $item->rating
+                'rating' => $item->rating,
+                'ref' => $ref_list
             ];
         }
         return $posts;

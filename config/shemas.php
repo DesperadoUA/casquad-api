@@ -64,7 +64,59 @@ return [
         'reviews' => [
             'type' => 'json',
             'default' => []
-        ]
+        ],
+        'geo_WORLD' => [
+            'type' => 'number',
+            'default' => 1
+        ],
+        'geo_GB' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_BD' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_AU' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_GR' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_IN' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ID' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_CA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_NL' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_DE' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ZA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_PH' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_SE' => [
+            'type' => 'number',
+            'default' => 0
+        ],
     ],
     'BONUS' => [
         'rating' => [
@@ -86,6 +138,62 @@ return [
         'banner' => [
             'type' => 'string',
             'default' => ''
+        ],
+        'ref' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'geo_WORLD' => [
+            'type' => 'number',
+            'default' => 1
+        ],
+        'geo_GB' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_BD' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_AU' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_GR' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_IN' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ID' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_CA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_NL' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_DE' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ZA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_PH' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_SE' => [
+            'type' => 'number',
+            'default' => 0
         ]
     ],
     'GAME' => [
@@ -144,6 +252,58 @@ return [
         'reviews' => [
             'type' => 'json',
             'default' => []
+        ],
+        'geo_WORLD' => [
+            'type' => 'number',
+            'default' => 1
+        ],
+        'geo_GB' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_BD' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_AU' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_GR' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_IN' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ID' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_CA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_NL' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_DE' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_ZA' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_PH' => [
+            'type' => 'number',
+            'default' => 0
+        ],
+        'geo_SE' => [
+            'type' => 'number',
+            'default' => 0
         ]
     ],
     'NEWS' => [

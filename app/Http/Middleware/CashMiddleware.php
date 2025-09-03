@@ -16,7 +16,7 @@ class CashMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $candidate = Cash::get(url()->current());
+        $candidate = Cash::get(url()->full());
         if($candidate->isEmpty())return $next($request);
         else {
             $data = json_decode($candidate[0]->data,true);

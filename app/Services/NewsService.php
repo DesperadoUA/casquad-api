@@ -50,7 +50,7 @@ class NewsService extends FrontBaseService {
                 $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
             }
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

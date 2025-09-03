@@ -50,7 +50,24 @@ class FrontBaseService
                 $this->response['body']['posts'] = $this->cardBuilder->main($post->getPublicPostsByArrId($arr_posts));
             }
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function categoryWithGeo($id, $geo) {
+        $category = new Category($this->configTables);
+        $data = $category->getPublicPostByUrl($id);
+        if(!$data->isEmpty()) {
+            $this->response['body'] = $this->categorySerialize->frontSerialize($data[0]);
+
+            $this->response['body']['posts'] = [];
+            $arr_posts = Relative::getPostIdByRelative($this->configTables['table_relative'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
+                $this->response['body']['posts'] = $this->cardBuilder->main($post->getPublicPostsByArrIdAndGeo($arr_posts, $geo));
+            }
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

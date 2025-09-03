@@ -25,7 +25,7 @@ class LanguageService extends FrontBaseService {
             $this->response['body'] = $this->serialize->frontSerialize($data[0], $this->shemas);
 
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

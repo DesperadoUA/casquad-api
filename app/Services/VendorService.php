@@ -25,7 +25,7 @@ class VendorService extends FrontBaseService {
         ];
         $this->cardBuilder = new VendorCardBuilder();
     }
-    public function show($id) {
+    public function show($id, $geo) {
         $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
         $data = $post->getPublicPostByUrl($id);
 
@@ -40,7 +40,7 @@ class VendorService extends FrontBaseService {
             $this->response['body']['games'] = $gameCardBuilder->main($games);
 
             $casinoIds = Relative::getPostIdByRelative($this->tables['CASINO_VENDOR_RELATIVE'], $data[0]->id);
-            $casinos = $casinoModel->getPublicPostsByArrId($casinoIds);
+            $casinos = $casinoModel->getPublicPostsByArrIdAndGeo($casinoIds, $geo);
             $casinoCardBuilder = new CasinoCardBuilder();
             $this->response['body']['casinos'] = $casinoCardBuilder->main($casinos);
 
@@ -49,12 +49,13 @@ class VendorService extends FrontBaseService {
             $topBonusSettings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::ASIDE_LIMIT_BONUS,
-                'order_key' => 'rating'
+                'order_key' => 'rating',
+                'geo' => $geo
             ];
-            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
 
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

@@ -10,8 +10,7 @@ class Posts extends Model
     protected $table;
     protected $table_meta;
 
-    function __construct(array $attributes = [])
-    {
+    function __construct(array $attributes = []) {
         parent::__construct([]);
         $this->table = isset($attributes['table']) ? $attributes['table'] : 'casinos';
         $this->table_meta = isset($attributes['table_meta']) ? $attributes['table_meta'] : 'casino_meta';
@@ -37,6 +36,28 @@ class Posts extends Model
         $posts = DB::table($t1)
             ->where($t1 . '.status', 'public')
             ->where($t1 . '.lang', $lang)
+            ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
+            ->select($t1 . '.*', $t2 . '.*')
+            ->offset($offset)
+            ->limit($limit)
+            ->orderBy($order_key, $order_by)
+            ->get();
+        return $posts;
+    }
+    public function getPublicPostsByGeo($settings = []) {
+        $limit = isset($settings['limit']) ? $settings['limit'] : self::LIMIT;
+        $offset = isset($settings['offset']) ? $settings['offset'] : self::OFFSET;
+        $order_by = isset($settings['order_by']) ? $settings['order_by'] : self::ORDER_BY;
+        $order_key = isset($settings['order_key']) ? $settings['order_key'] : self::ORDER_KEY;
+        $lang = isset($settings['lang']) ? $settings['lang'] : self::LANG;
+        $geo = isset($settings['geo']) ? $settings['geo'] : config('geo.DEFAULT_GEO');
+
+        $t1 = $this->table;
+        $t2 = $this->table_meta;
+        $posts = DB::table($t1)
+            ->where($t1 . '.status', 'public')
+            ->where($t1 . '.lang', $lang)
+            ->where($t2 . '.geo_'.$geo, 1)
             ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
             ->select($t1 . '.*', $t2 . '.*')
             ->offset($offset)
@@ -204,6 +225,25 @@ class Posts extends Model
         $posts = DB::table($t1)
             ->where($t1 . '.status', 'public')
             ->whereIn($t1 . '.id', $arr)
+            ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
+            ->select($t1 . '.*', $t2 . '.*')
+            ->orderBy($order_key, $order_by)
+            ->get();
+        return $posts;
+    }
+    public function getPublicPostsByArrIdAndGeo($arr, $geo) {
+        $order_by = self::ORDER_BY;
+        $order_key = in_array($this->table_meta, self::TABLE_WITH_RATING) ? 'rating' : self::ORDER_KEY;
+        $geo = isset($geo) ? $geo : config('geo.DEFAULT_GEO');
+
+        $t1 = $this->table;
+        $t2 = $this->table_meta;
+
+        if (empty($arr)) return [];
+        $posts = DB::table($t1)
+            ->where($t1 . '.status', 'public')
+            ->whereIn($t1 . '.id', $arr)
+            ->where($t2 . '.geo_'.$geo, 1)
             ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
             ->select($t1 . '.*', $t2 . '.*')
             ->orderBy($order_key, $order_by)

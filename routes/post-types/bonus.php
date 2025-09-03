@@ -2,8 +2,8 @@
 use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function () {
-    Route::get('bonus/{id}', 'BonusController@show')->middleware('cash');
-    Route::get('bonuses/{id}', 'BonusController@category')->middleware('cash');
+    Route::get('bonus/{id}', 'BonusController@show')->middleware(['cash', 'geo']);
+    Route::get('bonuses/{id}', 'BonusController@category')->middleware(['cash', 'geo']);
 
     Route::post('admin/bonuses', 'AdminBonusController@index')->middleware('api_auth');
     Route::post('admin/bonus/update', 'AdminBonusController@update')->middleware('api_auth');

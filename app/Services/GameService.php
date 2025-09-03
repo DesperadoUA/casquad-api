@@ -23,7 +23,7 @@ class GameService extends FrontBaseService {
         ];
         $this->cardBuilder = new GameCardBuilder();
     }
-    public function show($id) {
+    public function show($id, $geo) {
         $post = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
         $data = $post->getPublicPostByUrl($id);
 
@@ -44,12 +44,16 @@ class GameService extends FrontBaseService {
             if(!empty($arr_posts)) {
                 $CardBuilder = new CasinoCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
-                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $this->response['body']['casinos'] = $CardBuilder->sliderCard($publicPosts);
             }
-
+            $ref_list = [];
+            foreach($this->response['body']['ref'] as $item) {
+                $ref_list[$item['value_2']] = $item['value_1'];
+            }
+            $this->response['body']['ref'] = $ref_list;
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

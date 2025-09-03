@@ -34,14 +34,14 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function main(){
-        return response()->json($this->service->main());
+    public function main(Request $request) {
+        return response()->json($this->service->main($request->input('geo')));
     }
     public function shares(){
         return response()->json($this->service->shares());
     }
-    public function bonuses(){
-        return response()->json($this->service->bonuses());
+    public function bonuses(Request $request){
+        return response()->json($this->service->bonuses($request->input('geo')));
     }
     public function games(){
         return response()->json($this->service->games());

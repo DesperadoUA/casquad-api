@@ -33,7 +33,7 @@ class PageService extends BaseService {
         $this->config = config('constants.PAGES');
         $this->serialize = new PageSerialize();
     }
-    public function main(){
+    public function main($geo) {
         $post = new Pages();
         $data = $post->getPublicPostByUrl('/');
         if(!$data->isEmpty()) {
@@ -43,14 +43,16 @@ class PageService extends BaseService {
             $settings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::MAIN_PAGE_LIMIT_CASINO,
-                'order_key' => 'rating'
+                'order_key' => 'rating',
+                'geo' => $geo
             ];
-            $this->response['body']['casino'] = $casinoCardBuilder->main($casino->getPublicPosts($settings));
+            $this->response['body']['casino'] = $casinoCardBuilder->main($casino->getPublicPostsByGeo($settings));
             $casinoSliderSettings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::SLIDER_LIMIT_CASINO,
+                'geo' => $geo
             ];
-            $this->response['body']['casino_slider'] = $casinoCardBuilder->sliderCard($casino->getPublicPosts($casinoSliderSettings));
+            $this->response['body']['casino_slider'] = $casinoCardBuilder->sliderCard($casino->getPublicPostsByGeo($casinoSliderSettings));
             $gameCardBuilder = new GameCardBuilder();
             $game = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
             $gameSettings = [
@@ -64,15 +66,17 @@ class PageService extends BaseService {
             $bonusSettings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::SLIDER_LIMIT_BONUS,
+                'geo' => $geo
             ];
-            $this->response['body']['bonuses'] = $bonusCardBuilder->slider($bonus->getPublicPosts($bonusSettings));
+            $this->response['body']['bonuses'] = $bonusCardBuilder->slider($bonus->getPublicPostsByGeo($bonusSettings));
 
             $topBonusSettings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::ASIDE_LIMIT_BONUS,
-                'order_key' => 'rating'
+                'order_key' => 'rating',
+                'geo' => $geo
             ];
-            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
 
             $newsCardBuilder = new NewsCardBuilder();
             $news = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
@@ -93,13 +97,13 @@ class PageService extends BaseService {
                 'lang'      => $data[0]->lang,
             ];
             $this->response['body']['casino_category'] = $baseCardBuilder->defaultCard($casinoCategory->getPublicPosts($casinoCategorySettings));
-
+            $this->response['geo'] = $geo;
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
-    public function bonuses(){
+    public function bonuses($geo) {
         $post = new Pages();
         $data = $post->getPublicPostByUrl($this->config['BONUSES']);
         if(!$data->isEmpty()) {
@@ -120,16 +124,17 @@ class PageService extends BaseService {
                 $posts = Relative::getPostIdByRelative($this->tables['BONUS_CATEGORY_RELATIVE'], $item->id);
                 if(!empty($posts)) {
                     $post = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+                    $postsByGeo = $post->getPublicPostsByArrIdAndGeo($posts, $geo);
                     $this->response['body']['bonus_category'][] = [
                         'title' => $item->title,
                         'permalink' => '/'.$item->slug.'/'.$item->permalink,
-                        'posts' => $bonusCardBuilder->main($post->getPublicPostsByArrId(array_slice($posts, 0, 3)))
+                        'posts' => $bonusCardBuilder->main($postsByGeo->take(3)->toArray())
                     ];
                 }
             }
 
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
@@ -139,7 +144,7 @@ class PageService extends BaseService {
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
@@ -157,7 +162,7 @@ class PageService extends BaseService {
             $this->response['body']['news'] = $newsCardBuilder->main($bonusModel->getPublicPosts($settings));
 
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
@@ -194,7 +199,7 @@ class PageService extends BaseService {
             $this->response['body']['vendors'] = $vendorCardBuilder->filterCard($vendorModel->getPublicPosts($vendorSettings));
 
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
@@ -253,7 +258,7 @@ class PageService extends BaseService {
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }

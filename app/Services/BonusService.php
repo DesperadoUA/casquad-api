@@ -6,6 +6,7 @@ use App\Services\FrontBaseService;
 use App\Models\Cash;
 use App\CardBuilder\BonusCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
+use App\Models\Category;
 
 class BonusService extends FrontBaseService {
     protected $response;
@@ -22,7 +23,7 @@ class BonusService extends FrontBaseService {
         ];
         $this->cardBuilder = new BonusCardBuilder();
     }
-    public function show($id) {
+    public function show($id, $geo) {
         $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
         $data = $post->getPublicPostByUrl($id);
 
@@ -38,7 +39,7 @@ class BonusService extends FrontBaseService {
             if(!empty($arr_posts)) {
                 $CardBuilder = new BonusCardBuilder();
                 $Model = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
-                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $filters = [];
                 foreach($publicPosts as $item) if($item->id !== $data[0]->id) $filters[] = $item;
                 $this->response['body']['bonuses'] = $CardBuilder->main($filters);
@@ -62,9 +63,31 @@ class BonusService extends FrontBaseService {
                 }
                 $this->response['body']['characters'] = $bonus_characters;
             }
+            $ref_list = [];
+            foreach($this->response['body']['ref'] as $refItem) {
+                $ref_list[$refItem['value_2']] = $refItem['value_1'];
+            }
+            $this->response['body']['ref'] = $ref_list;
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
+    }
+    public function categoryWithGeo($id, $geo) {
+        $category = new Category($this->configTables);
+        $data = $category->getPublicPostByUrl($id);
+        if(!$data->isEmpty()) {
+            $this->response['body'] = $this->categorySerialize->frontSerialize($data[0]);
+
+            $this->response['body']['posts'] = [];
+            $arr_posts = Relative::getPostIdByRelative($this->configTables['table_relative'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
+                $this->response['body']['posts'] = $this->cardBuilder->main($post->getPublicPostsByArrIdAndGeo($arr_posts, $geo));
+            }
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;    
     }
 }

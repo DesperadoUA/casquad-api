@@ -4,4 +4,6 @@ Allow: /*.jpeg$
 Allow: /*.gif$
 Allow: /*.png$
 Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.js$
 Disallow: /

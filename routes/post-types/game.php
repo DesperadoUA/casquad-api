@@ -2,7 +2,7 @@
 use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function () {
-    Route::get('game/{id}', 'GameController@show')->middleware('cash');
+    Route::get('game/{id}', 'GameController@show')->middleware(['cash', 'geo']);
     Route::get('games/{id}', 'GameController@category')->middleware('cash');
 
     Route::post('admin/games', 'AdminGameController@index')->middleware('api_auth');

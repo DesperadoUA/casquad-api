@@ -16,12 +16,15 @@ class CasinoCardBuilder extends BaseCardBuilder {
             if(!empty($vendor_posts)) {
                 $vendorPublicPosts = $vendorCardBuilder->main($vendorModel->getPublicPostsByArrId($vendor_posts));
             }
+            $refs = (array)json_decode($item->ref, true);
+            $ref_list = [];
+            foreach($refs as $ref) $ref_list[$ref['value_2']] = $ref['value_1'];
             $posts[] = [
                 'thumbnail' => $item->thumbnail,
                 'rating' => $item->rating,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'title' => $item->title,
-                'ref' =>  json_decode($item->ref, true),
+                'ref' =>  $ref_list,
                 'color' => $item->color,
                 'label' => $item->label,
                 'advantages' => json_decode($item->advantages, true),
@@ -53,11 +56,16 @@ class CasinoCardBuilder extends BaseCardBuilder {
         if(empty($arr_posts)) return [];
         $posts = [];
         foreach ($arr_posts as $item) {
+            $refs = (array)json_decode($item->ref, true);
+            $ref_list = [];
+            foreach($refs as $refItem) {
+                $ref_list[$refItem['value_2']] = $refItem['value_1'];
+            }
             $posts[] = [
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
-                'ref' => json_decode($item->ref, true),
+                'ref' => $ref_list,
             ];
         }
         return $posts;

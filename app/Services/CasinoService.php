@@ -34,7 +34,7 @@ class CasinoService extends FrontBaseService {
         ];
         $this->cardBuilder = new CasinoCardBuilder();
     }
-    public function show($id) {
+    public function show($id, $geo) {
         $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
         $data = $post->getPublicPostByUrl($id);
 
@@ -111,7 +111,7 @@ class CasinoService extends FrontBaseService {
             if(!empty($arr_posts)) {
                 $CardBuilder = new BonusCardBuilder();
                 $Model = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
-                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $this->response['body']['bonuses'] = $CardBuilder->main($publicPosts);
             }
 
@@ -129,26 +129,31 @@ class CasinoService extends FrontBaseService {
             if(!empty($arr_posts)) {
                 $CardBuilder = new CasinoCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
-                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
             }
-
+            $ref_list = [];
+            foreach($this->response['body']['ref'] as $item) {
+                $ref_list[$item['value_2']] = $item['value_1'];
+            }
+            $this->response['body']['ref'] = $ref_list;
             $this->response['confirm'] = 'ok';
-            Cash::store(url()->current(), json_encode($this->response));
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
-    public function category($id) {
-        $parentData = parent::category($id);
+    public function categoryWithGeo($id, $geo) {
+        $parentData = parent::categoryWithGeo($id, $geo);
         if($parentData['confirm'] !== 'error') {
             $bonusCardBuilder = new BonusCardBuilder();
             $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
             $topBonusSettings = [
                 'lang'      => $parentData['body']['lang'],
                 'limit'     => self::ASIDE_LIMIT_BONUS,
-                'order_key' => 'rating'
+                'order_key' => 'rating',
+                'geo' => $geo
             ];
-            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPosts($topBonusSettings));
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
 
             $baseCardBuilder = new BaseCardBuilder();
             $casinoCategory = new Category([
@@ -161,7 +166,7 @@ class CasinoService extends FrontBaseService {
                 'lang' => $parentData['body']['lang'],
             ];
             $this->response['body']['casino_category'] = $baseCardBuilder->defaultCard($casinoCategory->getPublicPosts($casinoCategorySettings));
-            Cash::updatePost(url()->current(), json_encode($this->response));
+            Cash::updatePost(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
