@@ -125,13 +125,12 @@ class Posts extends Model
         return $post;
         */
     }
-    public function getPostById($id)
-    {
+    public function getPublicPostById($id) {
         $t1 = $this->table;
         $t2 = $this->table_meta;
-
         $post = DB::table($t1)
             ->where('id', $id)
+            ->where($t1 . '.status', 'public')
             ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
             ->select($t1 . '.*', $t2 . '.*')
             ->get();
@@ -253,5 +252,14 @@ class Posts extends Model
     public function deleteById($id){
         DB::table($this->table)->where('id', $id)->delete();
     }
-
+    public function getPostById($id) {
+        $t1 = $this->table;
+        $t2 = $this->table_meta;
+        $post = DB::table($t1)
+            ->where('id', $id)
+            ->join($t2, $t1 . '.id', '=', $t2 . '.post_id')
+            ->select($t1 . '.*', $t2 . '.*')
+            ->get();
+        return $post;
+    }
 }

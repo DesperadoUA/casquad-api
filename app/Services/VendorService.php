@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 use App\Models\Posts;
+use App\Models\Review;
 use App\Models\Relative;
 use App\Services\FrontBaseService;
 use App\Models\Cash;
@@ -8,6 +9,7 @@ use App\CardBuilder\VendorCardBuilder;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\CardBuilder\BonusCardBuilder;
+use App\CardBuilder\ReviewCardBuilder;
 
 class VendorService extends FrontBaseService {
     const ASIDE_LIMIT_BONUS = 5; 
@@ -54,6 +56,26 @@ class VendorService extends FrontBaseService {
             ];
             $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
 
+            $reviewModel = new Review();
+            $reviews = $reviewModel->getPublicByParentPostId($data[0]->id, 'vendor');
+            $this->response['body']['reviews'] = ReviewCardBuilder::main($reviews);
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function reviews($id, $sort, $order) {
+        $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
+        $data = $post->getPublicPostById($id);
+        $sortBy = in_array($sort, config('constants.AVAILABLE_SORT_REVIEW')) ? $sort : 'rating';
+        $orderBy = in_array($order, ['asc', 'desc']) ? $order : 'asc';
+        if(!$data->isEmpty()) {
+            $review_model = new Review();
+            $posts = $review_model->getPublicByParentPostId($id, 'vendor', [
+                'order_by' => $orderBy,
+                'order_key' => $sortBy
+            ]);
+            $this->response['body']['posts'] = ReviewCardBuilder::main($posts);
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }

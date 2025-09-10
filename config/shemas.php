@@ -61,10 +61,6 @@ return [
             'type' => 'string',
             'default' => ''
         ],
-        'reviews' => [
-            'type' => 'json',
-            'default' => []
-        ],
         'geo_WORLD' => [
             'type' => 'number',
             'default' => 1
@@ -249,10 +245,6 @@ return [
             'type' => 'string',
             'default' => ''
         ],
-        'reviews' => [
-            'type' => 'json',
-            'default' => []
-        ],
         'geo_WORLD' => [
             'type' => 'number',
             'default' => 1
@@ -340,10 +332,6 @@ return [
         'video_title' => [
             'type' => 'string',
             'default' => ''
-        ],
-        'reviews' => [
-            'type' => 'json',
-            'default' => []
         ]
     ],
     'CURRENCY' => [

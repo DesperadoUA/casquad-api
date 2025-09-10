@@ -15,4 +15,8 @@ class CasinoController extends PostController {
         $request = request();
         return response()->json($this->service->categoryWithGeo($id, $request->input('geo')));
     }
+    public function reviews($id) {
+        $request = request();
+        return response()->json($this->service->reviews($id, $request->query('sort'), $request->query('order')));
+    }
 }

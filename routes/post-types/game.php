@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->group(function () {
     Route::get('game/{id}', 'GameController@show')->middleware(['cash', 'geo']);
     Route::get('games/{id}', 'GameController@category')->middleware('cash');
+    Route::get('game/reviews/{id}', 'GameController@reviews')->middleware(['cash', 'geo']);
 
     Route::post('admin/games', 'AdminGameController@index')->middleware('api_auth');
     Route::post('admin/game/update', 'AdminGameController@update')->middleware('api_auth');

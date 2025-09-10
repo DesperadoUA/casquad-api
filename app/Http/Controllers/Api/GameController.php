@@ -11,4 +11,8 @@ class GameController extends PostController {
         $request = request();
         return response()->json($this->service->show($id, $request->input('geo')));
     }
+    public function reviews($id) {
+        $request = request();
+        return response()->json($this->service->reviews($id, $request->query('sort'), $request->query('order')));
+    }
 }

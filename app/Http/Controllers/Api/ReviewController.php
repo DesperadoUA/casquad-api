@@ -14,4 +14,7 @@ class ReviewController extends Controller {
     public function show($id) {
         return response()->json($this->service->show($id));
     }
+    public function store(Request $request) {
+        return response()->json($this->service->store($request->input('data')));
+    }
 }

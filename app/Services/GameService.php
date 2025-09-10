@@ -2,11 +2,13 @@
 namespace App\Services;
 use App\Models\Posts;
 use App\Models\Relative;
+use App\Models\Review;
 use App\Services\FrontBaseService;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\VendorCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\Models\Cash;
+use App\CardBuilder\ReviewCardBuilder;
 
 class GameService extends FrontBaseService {
     protected $response;
@@ -51,7 +53,28 @@ class GameService extends FrontBaseService {
             foreach($this->response['body']['ref'] as $item) {
                 $ref_list[$item['value_2']] = $item['value_1'];
             }
+
+            $reviewModel = new Review();
+            $reviews = $reviewModel->getPublicByParentPostId($data[0]->id, 'game');
+            $this->response['body']['reviews'] = ReviewCardBuilder::main($reviews);
             $this->response['body']['ref'] = $ref_list;
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function reviews($id, $sort, $order) {
+        $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
+        $data = $post->getPublicPostById($id);
+        $sortBy = in_array($sort, config('constants.AVAILABLE_SORT_REVIEW')) ? $sort : 'rating';
+        $orderBy = in_array($order, ['asc', 'desc']) ? $order : 'asc';
+        if(!$data->isEmpty()) {
+            $review_model = new Review();
+            $posts = $review_model->getPublicByParentPostId($id, 'game', [
+                'order_by' => $orderBy,
+                'order_key' => $sortBy
+            ]);
+            $this->response['body']['posts'] = ReviewCardBuilder::main($posts);
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }

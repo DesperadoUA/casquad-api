@@ -71,7 +71,9 @@ class AdminReviewService {
             'email' => $data['email'],
             'name' => $data['name'],
             'status' => $data['status'],
-            'update_at' => $data['update_at']
+            'update_at' => $data['update_at'],
+            'rating' => $data['rating'],
+            'title' => $data['title']
         ];
         $this->model->updateById($data['id'], $post);
         Cash::deleteAll();

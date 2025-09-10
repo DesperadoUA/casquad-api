@@ -21,7 +21,7 @@ class Review extends Model {
             ->get();
         return $post;
     }
-     public function getPosts($settings = []) {
+    public function getPosts($settings = []) {
         $limit = isset($settings['limit']) ? $settings['limit'] : self::LIMIT;
         $offset = isset($settings['offset']) ? $settings['offset'] : self::OFFSET;
         $order_by = isset($settings['order_by']) ? $settings['order_by'] : self::ORDER_BY;
@@ -50,5 +50,20 @@ class Review extends Model {
     }
     public function deleteByParentReviewId($id){
         DB::table($this->table)->where('parent_review_id', $id)->delete();
+    }
+    public function insert($data) {
+        $insert_id = DB::table($this->table)->insertGetId($data);
+        return $insert_id;
+    }
+    public function getPublicByParentPostId($id, $post_type, $settings = []) {
+        $order_by = isset($settings['order_by']) ? $settings['order_by'] : self::ORDER_BY;
+        $order_key = isset($settings['order_key']) ? $settings['order_key'] : self::ORDER_KEY;
+        $posts = DB::table($this->table)
+            ->where('parent_post_id', $id)
+            ->where('post_type', $post_type)
+            ->where('status', 'public')
+            ->orderBy($order_key, $order_by)
+            ->get();
+        return $posts;
     }
 }

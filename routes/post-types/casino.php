@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->group(function () {
     Route::get('casino/{id}', 'CasinoController@show')->middleware(['cash', 'geo']);
     Route::get('casinos/{id}', 'CasinoController@category')->middleware(['cash', 'geo']);
+    Route::get('casino/reviews/{id}', 'CasinoController@reviews')->middleware(['cash', 'geo']);
 
     Route::post('admin/casinos', 'AdminCasinoController@index')->middleware('api_auth');
     Route::post('admin/casino/update', 'AdminCasinoController@update')->middleware('api_auth');

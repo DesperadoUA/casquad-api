@@ -3,6 +3,7 @@ namespace App\Services;
 use App\Models\Posts;
 use App\Models\Relative;
 use App\Models\Category;
+use App\Models\Review;
 use App\Models\Cash;
 use App\Services\FrontBaseService;
 use App\CardBuilder\VendorCardBuilder;
@@ -13,6 +14,7 @@ use App\CardBuilder\LanguageCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
+use App\CardBuilder\ReviewCardBuilder;
 
 class CasinoService extends FrontBaseService {
     protected $response;
@@ -137,6 +139,10 @@ class CasinoService extends FrontBaseService {
                 $ref_list[$item['value_2']] = $item['value_1'];
             }
             $this->response['body']['ref'] = $ref_list;
+
+            $reviewModel = new Review();
+            $reviews = $reviewModel->getPublicByParentPostId($data[0]->id, 'casino');
+            $this->response['body']['reviews'] = ReviewCardBuilder::main($reviews);
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }
@@ -167,6 +173,23 @@ class CasinoService extends FrontBaseService {
             ];
             $this->response['body']['casino_category'] = $baseCardBuilder->defaultCard($casinoCategory->getPublicPosts($casinoCategorySettings));
             Cash::updatePost(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function reviews($id, $sort, $order) {
+        $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
+        $data = $post->getPublicPostById($id);
+        $sortBy = in_array($sort, config('constants.AVAILABLE_SORT_REVIEW')) ? $sort : 'rating';
+        $orderBy = in_array($order, ['asc', 'desc']) ? $order : 'asc';
+        if(!$data->isEmpty()) {
+            $review_model = new Review();
+            $posts = $review_model->getPublicByParentPostId($id, 'casino', [
+                'order_by' => $orderBy,
+                'order_key' => $sortBy
+            ]);
+            $this->response['body']['posts'] = ReviewCardBuilder::main($posts);
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
     }
