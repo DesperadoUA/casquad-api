@@ -113,6 +113,10 @@ return [
             'type' => 'number',
             'default' => 0
         ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
     ],
     'BONUS' => [
         'rating' => [
@@ -190,7 +194,11 @@ return [
         'geo_SE' => [
             'type' => 'number',
             'default' => 0
-        ]
+        ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
     ],
     'GAME' => [
         'iframe' => [
@@ -296,7 +304,11 @@ return [
         'geo_SE' => [
             'type' => 'number',
             'default' => 0
-        ]
+        ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
     ],
     'NEWS' => [
         'author' => [
@@ -310,7 +322,11 @@ return [
         'preview_img' => [
             'type' => 'string',
             'default' => ''
-        ]
+        ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
     ],
     'VENDOR' => [
         'rating' => [
@@ -332,7 +348,11 @@ return [
         'video_title' => [
             'type' => 'string',
             'default' => ''
-        ]
+        ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
     ],
     'CURRENCY' => [
         'author' => [
@@ -366,6 +386,12 @@ return [
     ],
     'AUTHOR' => [
         'social' => [
+           'type' => 'string',
+           'default' => ''
+        ],
+    ],
+    'ARTICLE' => [
+        'author_summary' => [
            'type' => 'string',
            'default' => ''
         ],

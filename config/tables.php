@@ -55,5 +55,10 @@ return [
     'AUTHOR_CATEGORY' => 'author_category',
     'AUTHOR_CATEGORY_RELATIVE' => 'author_category_relative',
 
+    'ARTICLE' => 'articles',
+    'ARTICLE_META' => 'article_meta',
+    'ARTICLE_CATEGORY' => 'article_category',
+    'ARTICLE_CATEGORY_RELATIVE' => 'article_category_relative',
+
     'PAGES' => 'pages'
 ];
