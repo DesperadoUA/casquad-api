@@ -15,6 +15,7 @@ use App\CardBuilder\CasinoCardBuilder;
 use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
 use App\CardBuilder\ReviewCardBuilder;
+use App\CardBuilder\AuthorCardBuilder;
 
 class CasinoService extends FrontBaseService {
     protected $response;
@@ -133,6 +134,16 @@ class CasinoService extends FrontBaseService {
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
                 $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
+            }
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['CASINO_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                $this->response['body']['authors'] = $posts;
             }
             $ref_list = [];
             foreach($this->response['body']['ref'] as $item) {

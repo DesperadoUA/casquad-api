@@ -24,6 +24,9 @@ class AdminArticleService extends AdminPostService {
             $this->response['body']['category'] = self::relativeCategoryPost($id, $this->tables['ARTICLE'],
                                                                                   $this->tables['ARTICLE_CATEGORY'],
                                                                                   $this->tables['ARTICLE_CATEGORY_RELATIVE']);
+            $this->response['body']['article_author'] = self::relativePostPost($id, $this->tables['ARTICLE'], 
+                                                                                   $this->tables['AUTHOR'], 
+                                                                                   $this->tables['ARTICLE_AUTHOR_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -38,6 +41,9 @@ class AdminArticleService extends AdminPostService {
         self::updateCategory($data['id'], $data['category'], $this->tables['ARTICLE'],
                                                              $this->tables['ARTICLE_CATEGORY'],
                                                              $this->tables['ARTICLE_CATEGORY_RELATIVE']);
+        self::updatePostPost($data['id'], $data['article_author'], $this->tables['ARTICLE'], 
+                                                                  $this->tables['AUTHOR'], 
+                                                                  $this->tables['ARTICLE_AUTHOR_RELATIVE']); 
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;

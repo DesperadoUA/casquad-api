@@ -10,6 +10,7 @@ use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\CardBuilder\BonusCardBuilder;
 use App\CardBuilder\ReviewCardBuilder;
+use App\CardBuilder\AuthorCardBuilder;
 
 class VendorService extends FrontBaseService {
     const ASIDE_LIMIT_BONUS = 5; 
@@ -55,6 +56,16 @@ class VendorService extends FrontBaseService {
                 'geo' => $geo
             ];
             $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['VENDOR_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                $this->response['body']['authors'] = $posts;
+            }
 
             $reviewModel = new Review();
             $reviews = $reviewModel->getPublicByParentPostId($data[0]->id, 'vendor');

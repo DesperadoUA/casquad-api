@@ -9,6 +9,7 @@ use App\CardBuilder\VendorCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\Models\Cash;
 use App\CardBuilder\ReviewCardBuilder;
+use App\CardBuilder\AuthorCardBuilder;
 
 class GameService extends FrontBaseService {
     protected $response;
@@ -49,6 +50,17 @@ class GameService extends FrontBaseService {
                 $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
                 $this->response['body']['casinos'] = $CardBuilder->sliderCard($publicPosts);
             }
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['GAME_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                $this->response['body']['authors'] = $posts;
+            }
+
             $ref_list = [];
             foreach($this->response['body']['ref'] as $item) {
                 $ref_list[$item['value_2']] = $item['value_1'];

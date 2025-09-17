@@ -27,6 +27,9 @@ class AdminNewsService extends AdminPostService {
             $this->response['body']['news_casino'] = self::relativePostPost($id, $this->tables['NEWS'], 
                                                                                    $this->tables['CASINO'], 
                                                                                    $this->tables['NEWS_CASINO_RELATIVE']);
+            $this->response['body']['news_author'] = self::relativePostPost($id, $this->tables['NEWS'], 
+                                                                                   $this->tables['AUTHOR'], 
+                                                                                   $this->tables['NEWS_AUTHOR_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -44,6 +47,9 @@ class AdminNewsService extends AdminPostService {
         self::updatePostPost($data['id'], $data['news_casino'], $this->tables['NEWS'], 
                                                                   $this->tables['CASINO'], 
                                                                   $this->tables['NEWS_CASINO_RELATIVE']);
+        self::updatePostPost($data['id'], $data['news_author'], $this->tables['NEWS'], 
+                                                                  $this->tables['AUTHOR'], 
+                                                                  $this->tables['NEWS_AUTHOR_RELATIVE']);
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;

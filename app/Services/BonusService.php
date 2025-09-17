@@ -7,6 +7,7 @@ use App\Models\Cash;
 use App\CardBuilder\BonusCardBuilder;
 use App\CardBuilder\CasinoCardBuilder;
 use App\Models\Category;
+use App\CardBuilder\AuthorCardBuilder;
 
 class BonusService extends FrontBaseService {
     protected $response;
@@ -85,6 +86,17 @@ class BonusService extends FrontBaseService {
                 $post = new Posts(['table' => $this->configTables['table'], 'table_meta' => $this->configTables['table_meta']]);
                 $this->response['body']['posts'] = $this->cardBuilder->main($post->getPublicPostsByArrIdAndGeo($arr_posts, $geo));
             }
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['BONUS_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                $this->response['body']['authors'] = $posts;
+            }
+
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }

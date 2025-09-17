@@ -4,6 +4,7 @@ use App\Models\Posts;
 use App\Models\Relative;
 use App\Services\FrontBaseService;
 use App\Models\Cash;
+use App\CardBuilder\AuthorCardBuilder;
 
 class ArticleService extends FrontBaseService {
     protected $response;
@@ -25,6 +26,16 @@ class ArticleService extends FrontBaseService {
 
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0], $this->shemas);
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['ARTICLE_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->main($publicPosts);
+                $this->response['body']['authors'] = $posts;
+            }
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }

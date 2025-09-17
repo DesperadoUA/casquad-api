@@ -24,6 +24,9 @@ class AdminVendorService extends AdminPostService {
             $this->response['body']['category'] = self::relativeCategoryPost($id, $this->tables['VENDOR'], 
                                                                                   $this->tables['VENDOR_CATEGORY'], 
                                                                                   $this->tables['VENDOR_CATEGORY_RELATIVE']);
+            $this->response['body']['vendor_author'] = self::relativePostPost($id, $this->tables['VENDOR'], 
+                                                                                   $this->tables['AUTHOR'], 
+                                                                                   $this->tables['VENDOR_AUTHOR_RELATIVE']);                                                                      
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -38,6 +41,9 @@ class AdminVendorService extends AdminPostService {
         self::updateCategory($data['id'], $data['category'], $this->tables['VENDOR'], 
                                                              $this->tables['VENDOR_CATEGORY'], 
                                                              $this->tables['VENDOR_CATEGORY_RELATIVE']);
+        self::updatePostPost($data['id'], $data['vendor_author'], $this->tables['VENDOR'], 
+                                                                  $this->tables['AUTHOR'], 
+                                                                  $this->tables['VENDOR_AUTHOR_RELATIVE']);
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;
