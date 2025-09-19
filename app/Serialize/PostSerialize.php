@@ -53,6 +53,7 @@ class PostSerialize extends BaseSerialize {
                     $str = str_replace('&nbsp;', '', $str);
                     $str = str_replace('<p><br></p>', '', $str);
                     $str = str_replace('<p></p>', '', $str);
+                    $str = str_replace(' class="ql-syntax" spellcheck="false"', '', $str);
                     $newData[$key] = htmlspecialchars_decode($str);
                 }
             }

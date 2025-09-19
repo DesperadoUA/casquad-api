@@ -386,8 +386,44 @@ return [
     ],
     'AUTHOR' => [
         'social' => [
-           'type' => 'string',
-           'default' => ''
+            'type' => 'json',
+            'default' => []
+        ],
+        'highlights' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'role' => [
+            'type' => 'string',
+            'default' => 'Editor Writer'
+        ],
+        'about' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'about_img' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'experience' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'education' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'faq' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'articles_overview' =>  [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'articles_overview_keys' => [
+            'type' => 'json',
+            'default' => []
         ],
     ],
     'ARTICLE' => [
