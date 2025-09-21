@@ -385,6 +385,14 @@ return [
         ],
     ],
     'AUTHOR' => [
+        'position' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'advantages' => [
+            'type' => 'json',
+            'default' => []
+        ],
         'social' => [
             'type' => 'json',
             'default' => []
