@@ -2,6 +2,8 @@
 use Illuminate\Http\Request;
 
 Route::namespace('Api')->group(function () {
+    Route::get('author/articles/{id}', 'AuthorController@relativeArticles')->middleware('cash');
+    Route::get('author/casinos/{id}', 'AuthorController@relativeCasinos')->middleware('cash');
     Route::get('author/{id}', 'AuthorController@show')->middleware('cash');
     Route::get('authors/{id}', 'AuthorController@category')->middleware('cash');
 

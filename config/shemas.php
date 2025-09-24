@@ -117,6 +117,10 @@ return [
            'type' => 'string',
            'default' => ''
         ],
+        'author_card_img' => [
+           'type' => 'string',
+           'default' => ''
+        ]
     ],
     'BONUS' => [
         'rating' => [

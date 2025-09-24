@@ -70,4 +70,18 @@ class CasinoCardBuilder extends BaseCardBuilder {
         }
         return $posts;
     }
+    public function author($arr_posts){
+        if(empty($arr_posts)) return [];
+        $posts = [];
+        foreach ($arr_posts as $item) {
+            $posts[] = [
+                'title' => $item->title,
+                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'thumbnail' => $item->author_card_img,
+                'update_at' => $item->update_at,
+                'short_desc' => $item->short_desc
+            ];
+        }
+        return $posts;
+    }
 }
