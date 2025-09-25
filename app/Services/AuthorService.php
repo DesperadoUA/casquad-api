@@ -30,6 +30,8 @@ class AuthorService extends FrontBaseService {
             $this->response['confirm'] = 'ok';
 
             $arr_posts = Relative::getPostIdByRelative($this->tables['ARTICLE_AUTHOR_RELATIVE'], $data[0]->id);
+            $this->response['body']['articles'] = [];
+            $this->response['body']['articles_total'] = [];
             if(!empty($arr_posts)) {
                 $CardBuilder = new ArticleCardBuilder();
                 $Model = new Posts(['table' => $this->tables['ARTICLE'], 'table_meta' => $this->tables['ARTICLE_META']]);
@@ -39,6 +41,8 @@ class AuthorService extends FrontBaseService {
             }
 
             $arr_posts = Relative::getPostIdByRelative($this->tables['CASINO_AUTHOR_RELATIVE'], $data[0]->id);
+            $this->response['body']['casinos'] = [];
+            $this->response['body']['casinos_total'] = [];
             if(!empty($arr_posts)) {
                 $CardBuilder = new CasinoCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
