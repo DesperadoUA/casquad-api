@@ -57,7 +57,7 @@ class NewsService extends FrontBaseService {
                 $CardBuilder = new AuthorCardBuilder();
                 $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $posts = $CardBuilder->main($publicPosts);
+                $posts = $CardBuilder->summary($publicPosts);
                 $this->response['body']['authors'] = $posts;
             }
 

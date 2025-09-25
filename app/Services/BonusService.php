@@ -64,6 +64,16 @@ class BonusService extends FrontBaseService {
                 }
                 $this->response['body']['characters'] = $bonus_characters;
             }
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['BONUS_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->summary($publicPosts);
+                $this->response['body']['authors'] = $posts;
+            }
             $ref_list = [];
             foreach($this->response['body']['ref'] as $refItem) {
                 $ref_list[$refItem['value_2']] = $refItem['value_1'];

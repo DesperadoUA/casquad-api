@@ -10,6 +10,14 @@ use App\Models\Cash;
 class AuthorService extends FrontBaseService {
     protected $response;
     protected $config;
+    protected $relatives = [
+        'CASINO',
+        'ARTICLE',
+        'BONUS',
+        'GAME',
+        'NEWS',
+        'VENDOR'
+    ];
     function __construct() {
         parent::__construct();
         $this->response = ['body' => [], 'confirm' => 'error'];
@@ -31,7 +39,7 @@ class AuthorService extends FrontBaseService {
 
             $arr_posts = Relative::getPostIdByRelative($this->tables['ARTICLE_AUTHOR_RELATIVE'], $data[0]->id);
             $this->response['body']['articles'] = [];
-            $this->response['body']['articles_total'] = [];
+            $this->response['body']['articles_total'] = 0;
             if(!empty($arr_posts)) {
                 $CardBuilder = new ArticleCardBuilder();
                 $Model = new Posts(['table' => $this->tables['ARTICLE'], 'table_meta' => $this->tables['ARTICLE_META']]);
@@ -42,7 +50,7 @@ class AuthorService extends FrontBaseService {
 
             $arr_posts = Relative::getPostIdByRelative($this->tables['CASINO_AUTHOR_RELATIVE'], $data[0]->id);
             $this->response['body']['casinos'] = [];
-            $this->response['body']['casinos_total'] = [];
+            $this->response['body']['casinos_total'] = 0;
             if(!empty($arr_posts)) {
                 $CardBuilder = new CasinoCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
@@ -50,6 +58,7 @@ class AuthorService extends FrontBaseService {
                 $this->response['body']['casinos'] = array_slice($CardBuilder->author($publicPosts), 0, 4);
                 $this->response['body']['casinos_total'] = count($publicPosts);
             }
+            $this->response['body']['total_posts'] = $this->countPostsByAuthor($data[0]->id);
 
             Cash::store(url()->full(), json_encode($this->response));
         }
@@ -92,5 +101,20 @@ class AuthorService extends FrontBaseService {
             Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
+    }
+    public function countPostsByAuthor(int $authorId): int {
+        $models = [];
+        foreach ($this->relatives as $entity) {
+            $models[$entity] = new Posts([
+                'table'      => $this->tables[$entity],
+                'table_meta' => $this->tables[$entity . '_META']
+            ]);
+        }
+        $total = 0;
+        foreach ($this->relatives as $entity) {
+            $relative = Relative::getPostIdByRelative($entity . '_AUTHOR_RELATIVE', $authorId);
+            $total += count($models[$entity]->getPublicPostsByArrId($relative));
+        }
+        return $total;
     }
 }
