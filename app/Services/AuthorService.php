@@ -112,7 +112,7 @@ class AuthorService extends FrontBaseService {
         }
         $total = 0;
         foreach ($this->relatives as $entity) {
-            $relative = Relative::getPostIdByRelative($entity . '_AUTHOR_RELATIVE', $authorId);
+            $relative = Relative::getPostIdByRelative($this->tables[$entity . '_AUTHOR_RELATIVE'], $authorId);
             $total += count($models[$entity]->getPublicPostsByArrId($relative));
         }
         return $total;
