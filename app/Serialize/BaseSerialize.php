@@ -1,6 +1,7 @@
 <?php 
 namespace App\Serialize;
 use App\Validate;
+use App\Services\ShortcodeManager;
 
 class BaseSerialize {
     const DEFAULT_SRC = '/img/default.jpg';
@@ -87,7 +88,7 @@ class BaseSerialize {
         $str = str_replace('&nbsp;', '', $str);
         $str = str_replace('<p><br></p>', '', $str);
         $str = str_replace('<p></p>', '', $str);
-        $newData['content'] = htmlspecialchars_decode($str);
+        $newData['content'] = ShortcodeManager::parse(htmlspecialchars_decode($str), $data);
         $newData['description'] = htmlspecialchars_decode($data->description);
         $newData['h1'] = htmlspecialchars_decode($data->h1);
         $newData['keywords'] = htmlspecialchars_decode($data->keywords);

@@ -16,6 +16,7 @@ use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
 use App\CardBuilder\ReviewCardBuilder;
 use App\CardBuilder\AuthorCardBuilder;
+use App\Services\ShortcodeManager;
 
 class CasinoService extends FrontBaseService {
     protected $response;
@@ -42,7 +43,11 @@ class CasinoService extends FrontBaseService {
         $data = $post->getPublicPostByUrl($id);
 
         if(!$data->isEmpty()) {
-            $this->response['body'] = $this->serialize->frontSerialize($data[0], $this->shemas);
+            $serealizeData = $this->serialize->frontSerialize($data[0], $this->shemas);
+            $this->response['body'] = $serealizeData;
+            $this->response['body']['content_reviews'] = ShortcodeManager::parse($serealizeData['content_reviews'], $data[0]);
+            $this->response['body']['content_bonuses'] = ShortcodeManager::parse($serealizeData['content_bonuses'], $data[0]);
+            $this->response['body']['content_analysis'] = ShortcodeManager::parse($serealizeData['content_analysis'], $data[0]); 
 
             $this->response['body']['vendors'] = [];
             $arr_posts = Relative::getRelativeByPostId($this->tables['CASINO_VENDOR_RELATIVE'], $data[0]->id);

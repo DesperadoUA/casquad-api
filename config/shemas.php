@@ -120,7 +120,15 @@ return [
         'author_card_img' => [
            'type' => 'string',
            'default' => ''
-        ]
+        ],
+        'pros' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'cons' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ],
     'BONUS' => [
         'rating' => [

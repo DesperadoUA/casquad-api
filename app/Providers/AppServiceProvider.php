@@ -1,28 +1,16 @@
 <?php
- 
 namespace App\Providers;
- 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-class AppServiceProvider extends ServiceProvider
-{
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
- 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
+use App\Services\ShortcodeManager;
+use App\Services\Shortcodes\ProsConsShortcode;
+
+class AppServiceProvider extends ServiceProvider {
+    public function register() {}
+
     public function boot()
     {
         Schema::defaultStringLength(191);
+        ShortcodeManager::add('pros_cons', [ProsConsShortcode::class, 'render']);
     }
 }
