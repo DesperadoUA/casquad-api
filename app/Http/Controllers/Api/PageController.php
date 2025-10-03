@@ -100,8 +100,10 @@ class PageController extends Controller
         $response['body']['posts'] = $data;
         return response()->json($response);
     }
-    public function default($id) {
-        return response()->json($this->service->default($id));
+    public function default() {
+        $path = request()->path();
+        $slug = str_replace('api/pages/', '', $path);
+        return response()->json($this->service->default($slug));
     }
 }
 

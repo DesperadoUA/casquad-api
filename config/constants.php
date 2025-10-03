@@ -12,7 +12,10 @@ return [
         'SITE_MAP' => 'sitemap',
         'NEWS' => 'news',
         'BONUSES' => 'bonuses',
-        'GAMES' => 'slots'
+        'GAMES' => 'slots',
+        'DEPOSIT_ONE_DOLLAR' => 'minimum-deposit-casinos/one-dollar',
+        'DEPOSIT_FIVE_DOLLAR' => 'minimum-deposit-casinos/five-dollar',
+        'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
