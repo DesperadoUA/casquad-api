@@ -245,6 +245,10 @@ return [
             'type' => 'number',
             'default' => 0
         ],
+        'faq_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
         'faq' => [
             'type' => 'json',
             'default' => []
