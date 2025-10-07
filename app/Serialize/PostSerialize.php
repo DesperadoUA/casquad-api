@@ -22,7 +22,7 @@ class PostSerialize extends BaseSerialize {
                 $newData[$key] = $data->{$key};
             }
             elseif($field['type'] === 'json') {
-                if(empty($data->{$key})) $newData[$key] = [];
+                if(empty($data->{$key})) $newData[$key] = $field['default'];
                 else $newData[$key] = json_decode($data->{$key}, true);
             }
             elseif($field['type'] === 'rich_text') {
@@ -42,7 +42,7 @@ class PostSerialize extends BaseSerialize {
                 $newData[$key] = $data->{$key};
             }
             elseif($field['type'] === 'json') {
-                if(empty($data->{$key})) $newData[$key] = [];
+                if(empty($data->{$key})) $newData[$key] = $field['default'];
                 else $newData[$key] = json_decode($data->{$key}, true);
             }
             elseif($field['type'] === 'rich_text') {

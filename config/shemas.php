@@ -455,5 +455,11 @@ return [
            'type' => 'string',
            'default' => ''
         ],
+        'order_components' => [
+            'type' => 'json',
+            'default' => [
+                'content' => 0,
+            ]
+        ],
     ]
 ];
