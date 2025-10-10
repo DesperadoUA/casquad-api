@@ -129,6 +129,14 @@ return [
             'type' => 'json',
             'default' => []
         ],
+        'payout' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'win_rate' => [
+            'type' => 'string',
+            'default' => ''
+        ],
     ],
     'BONUS' => [
         'rating' => [
