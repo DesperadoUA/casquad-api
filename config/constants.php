@@ -15,7 +15,10 @@ return [
         'GAMES' => 'slots',
         'DEPOSIT_ONE_DOLLAR' => 'minimum-deposit-casinos/one-dollar',
         'DEPOSIT_FIVE_DOLLAR' => 'minimum-deposit-casinos/five-dollar',
-        'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar'
+        'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar',
+        'NO_DEPOSIT_BONUS' => 'bonuses/no-deposit-bonus',
+        'FREE_SPINS' => 'bonuses/free-spins',
+        'PAYMENTS' => 'payments'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
