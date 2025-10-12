@@ -27,6 +27,15 @@ class AdminArticleService extends AdminPostService {
             $this->response['body']['article_author'] = self::relativePostPost($id, $this->tables['ARTICLE'], 
                                                                                    $this->tables['AUTHOR'], 
                                                                                    $this->tables['ARTICLE_AUTHOR_RELATIVE']);
+            $this->response['body']['article_casino'] = self::relativePostPost($id, $this->tables['ARTICLE'], 
+                                                                                   $this->tables['CASINO'], 
+                                                                                   $this->tables['ARTICLE_CASINO_RELATIVE']);
+            $this->response['body']['article_game'] = self::relativePostPost($id, $this->tables['ARTICLE'], 
+                                                                                   $this->tables['GAME'], 
+                                                                                   $this->tables['ARTICLE_GAME_RELATIVE']);
+            $this->response['body']['article_news'] = self::relativePostPost($id, $this->tables['ARTICLE'], 
+                                                                                   $this->tables['NEWS'], 
+                                                                                   $this->tables['ARTICLE_NEWS_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -43,7 +52,16 @@ class AdminArticleService extends AdminPostService {
                                                              $this->tables['ARTICLE_CATEGORY_RELATIVE']);
         self::updatePostPost($data['id'], $data['article_author'], $this->tables['ARTICLE'], 
                                                                   $this->tables['AUTHOR'], 
-                                                                  $this->tables['ARTICLE_AUTHOR_RELATIVE']); 
+                                                                  $this->tables['ARTICLE_AUTHOR_RELATIVE']);
+        self::updatePostPost($data['id'], $data['article_casino'], $this->tables['ARTICLE'], 
+                                                                  $this->tables['CASINO'], 
+                                                                  $this->tables['ARTICLE_CASINO_RELATIVE']);
+        self::updatePostPost($data['id'], $data['article_game'], $this->tables['ARTICLE'], 
+                                                                  $this->tables['GAME'], 
+                                                                  $this->tables['ARTICLE_GAME_RELATIVE']); 
+        self::updatePostPost($data['id'], $data['article_news'], $this->tables['ARTICLE'], 
+                                                                  $this->tables['NEWS'], 
+                                                                  $this->tables['ARTICLE_NEWS_RELATIVE']); 
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;

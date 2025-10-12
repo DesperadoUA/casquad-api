@@ -32,7 +32,9 @@ class CasinoCardBuilder extends BaseCardBuilder {
                 'min_dep' => $item->min_dep,
                 'bonus_value' => $item->bonus_value,
                 'vendors' => $vendorPublicPosts,
-                'icon' => $item->icon
+                'icon' => $item->icon,
+                'payout' => $item->payout,
+                'win_rate' => $item->win_rate
             ];
         }
         return $posts;

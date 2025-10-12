@@ -21,15 +21,22 @@ class GameCardBuilder extends BaseCardBuilder {
                     $vendorPublicPosts = $vendorModel->getPublicPostsByArrId($vendorId);
                     if(count($vendorPublicPosts)) {
                         $vendor['title'] = $vendorPublicPosts[0]->title;
+                        $vendor['thumbnail'] = $vendorPublicPosts[0]->thumbnail;
+                        $vendor['permalink'] = '/'.$vendorPublicPosts[0]->slug.'/'.$vendorPublicPosts[0]->permalink;
                     }
             }
+            $refs = (array)json_decode($item->ref, true);
+            $ref_list = [];
+            foreach($refs as $ref) $ref_list[$ref['value_2']] = $ref['value_1'];
             $posts[] = [
                 'title' => $item->title,
                 'permalink' => '/'.$item->slug.'/'.$item->permalink,
                 'thumbnail' => $item->thumbnail,
                 'vendor' => $vendor,
                 'game_week' => $item->game_week,
-                'slider_img' => $item->slider_img
+                'slider_img' => $item->slider_img,
+                'iframe' => $item->iframe,
+                'ref' => $ref_list
             ];
         }
         return $posts;

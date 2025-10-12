@@ -65,6 +65,9 @@ return [
     'ARTICLE_CATEGORY' => 'article_category',
     'ARTICLE_CATEGORY_RELATIVE' => 'article_category_relative',
     'ARTICLE_AUTHOR_RELATIVE' => 'article_author_relative',
+    'ARTICLE_CASINO_RELATIVE' => 'article_casino_relative',
+    'ARTICLE_GAME_RELATIVE' => 'article_game_relative',
+    'ARTICLE_NEWS_RELATIVE' => 'article_news_relative',
 
     'PAGES' => 'pages'
 ];
