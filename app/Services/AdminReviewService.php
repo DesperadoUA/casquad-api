@@ -26,6 +26,10 @@ class AdminReviewService {
             'vendor' => [
                 'table' => $this->tables['VENDOR'],
                 'table_meta' => $this->tables['VENDOR_META']
+            ],
+            'article' => [
+                'table' => $this->tables['ARTICLE'],
+                'table_meta' => $this->tables['ARTICLE_META']
             ]
         ];
     }
