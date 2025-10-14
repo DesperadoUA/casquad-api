@@ -533,5 +533,9 @@ return [
             'type' => 'string',
             'default' => ''
         ],
+        'nav_menu' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ]
 ];
