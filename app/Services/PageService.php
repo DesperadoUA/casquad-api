@@ -13,6 +13,8 @@ use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
 use App\CardBuilder\NewsCardBuilder;
 use App\CardBuilder\VendorCardBuilder;
+use Illuminate\Support\Facades\DB;
+
 class PageService extends BaseService {
     protected $response;
     protected $config;
@@ -221,6 +223,25 @@ class PageService extends BaseService {
         }
         return $this->response;
     }
+    public function bonusRoomCasino() {
+        $post = new Pages();
+        $data = $post->getPublicPostByUrl($this->config['BONUS_ROOM_CASINO']);
+        if(!$data->isEmpty()) {
+            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
+            /*
+            $newsCardBuilder = new NewsCardBuilder();
+            $bonusModel = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
+            $settings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::MAIN_PAGE_LIMIT_NEWS,
+            ];
+            $this->response['body']['news'] = $newsCardBuilder->main($bonusModel->getPublicPosts($settings));
+            */
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
     public function adminIndex($settings) {
         $posts = new Pages();
         $arrPosts = $posts->getPosts($settings);
@@ -239,6 +260,9 @@ class PageService extends BaseService {
         $data = $post->getPostById($id);
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->adminSerialize($data[0]);
+            $this->response['body']['page_author'] = self::relativePostPost($id, $this->tables['PAGES'], 
+                                                                                   $this->tables['AUTHOR'], 
+                                                                                   $this->tables['PAGE_AUTHOR_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -247,8 +271,10 @@ class PageService extends BaseService {
         $post = new Pages();
         $data_save = $this->serialize->validateUpdate($data);
         $post->updateById($data['id'], $data_save);
+         self::updatePostPost($data['id'], $data['page_author'], $this->tables['PAGES'], 
+                                                                  $this->tables['AUTHOR'], 
+                                                                  $this->tables['PAGE_AUTHOR_RELATIVE']); 
         $this->response['confirm'] = 'ok';
-        $this->response['test'] = $data_save;
         Cash::deleteAll();
         return $this->response;
     }
@@ -261,5 +287,50 @@ class PageService extends BaseService {
             Cash::store(url()->full(), json_encode($this->response));
         }
         return $this->response;
+    }
+    protected static function relativePostPost($id, $table_1, $table_2, $relative_table) {
+        $data = [];
+        $current_post = DB::table($table_1)->where('id', $id)->get();
+        if($current_post->isEmpty()) {
+            return $data;
+        }
+        else {
+            $arr_title_relative = [];
+            $list_relative = DB::table($table_2)->where('lang', $current_post[0]->lang)->get();
+            if(!$list_relative->isEmpty()) {
+                foreach ($list_relative as $item) $arr_title_relative[] = $item->title;
+            }
+            $data['all_value'] = $arr_title_relative;
+            $arr_relative_post_id = Relative::getRelativeByPostId($relative_table, $current_post[0]->id);
+            if(empty($arr_relative_post_id)) $data['current_value'] = [];
+            else {
+                $arr_category = DB::table($table_2)
+                    ->whereIn('id', $arr_relative_post_id)
+                    ->get();
+                $data['current_value'] = [];
+                foreach ($arr_category as $item) $data['current_value'][] = $item->title;
+            }
+            return $data;
+        }
+    }
+    public function updatePostPost($id, $arr_titles, $table_1, $table_2, $relative_table) {
+        DB::table($relative_table)->where('post_id', $id)->delete();
+        if(!empty($arr_titles)) {
+            $current_post = DB::table($table_1)->where('id', $id)->get();
+            if(!$current_post->isEmpty()) {
+                $arr_relative_posts = DB::table($table_2)
+                    ->whereIn('title', $arr_titles)
+                    ->where('lang', $current_post[0]->lang)
+                    ->get();
+                $data = [];
+                foreach ($arr_relative_posts as $item) {
+                    $data[] = [
+                        'post_id' => $current_post[0]->id,
+                        'relative_id' => $item->id
+                    ];
+                }
+                Relative::insert($relative_table, $data);
+            }
+        }
     }
 }

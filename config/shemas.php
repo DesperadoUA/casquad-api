@@ -333,6 +333,16 @@ return [
            'type' => 'string',
            'default' => ''
         ],
+        'nav_menu' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'order_components' => [
+            'type' => 'json',
+            'default' => [
+                'content' => 0,
+            ]
+        ],
     ],
     'NEWS' => [
         'author' => [

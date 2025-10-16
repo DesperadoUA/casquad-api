@@ -100,6 +100,9 @@ class PageController extends Controller
         $response['body']['posts'] = $data;
         return response()->json($response);
     }
+    public function bonusRoomCasino() {
+        return response()->json($this->service->bonusRoomCasino());
+    }
     public function default() {
         $path = request()->path();
         $slug = str_replace('api/pages/', '', $path);

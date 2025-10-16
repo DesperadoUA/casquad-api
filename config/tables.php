@@ -69,5 +69,6 @@ return [
     'ARTICLE_GAME_RELATIVE' => 'article_game_relative',
     'ARTICLE_NEWS_RELATIVE' => 'article_news_relative',
 
-    'PAGES' => 'pages'
+    'PAGES' => 'pages',
+    'PAGE_AUTHOR_RELATIVE' => 'page_author_relative'
 ];

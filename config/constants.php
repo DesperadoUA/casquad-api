@@ -18,7 +18,8 @@ return [
         'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar',
         'NO_DEPOSIT_BONUS' => 'bonuses/no-deposit-bonus',
         'FREE_SPINS' => 'bonuses/free-spins',
-        'PAYMENTS' => 'payments'
+        'PAYMENTS' => 'payments',
+        'BONUS_ROOM_CASINO' => 'bonus-room-casino'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
