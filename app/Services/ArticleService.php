@@ -38,16 +38,6 @@ class ArticleService extends FrontBaseService {
                 $CardBuilder = new AuthorCardBuilder();
                 $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
                 $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
-                $posts = $CardBuilder->main($publicPosts);
-                $this->response['body']['authors'] = $posts;
-            }
-            
-            $this->response['body']['authors'] = [];
-            $arr_posts = Relative::getRelativeByPostId($this->tables['ARTICLE_AUTHOR_RELATIVE'], $data[0]->id);
-            if(!empty($arr_posts)) {
-                $CardBuilder = new AuthorCardBuilder();
-                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
-                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
                 $posts = $CardBuilder->summary($publicPosts);
                 $this->response['body']['authors'] = $posts;
             }

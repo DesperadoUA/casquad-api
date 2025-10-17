@@ -69,6 +69,11 @@ return [
     'ARTICLE_GAME_RELATIVE' => 'article_game_relative',
     'ARTICLE_NEWS_RELATIVE' => 'article_news_relative',
 
+    'FUNNEL' => 'funnels',
+    'FUNNEL_META' => 'funnel_meta',
+    'FUNNEL_CATEGORY' => 'funnel_category',
+    'FUNNEL_CATEGORY_RELATIVE' => 'funnel_category_relative',
+
     'PAGES' => 'pages',
     'PAGE_AUTHOR_RELATIVE' => 'page_author_relative'
 ];

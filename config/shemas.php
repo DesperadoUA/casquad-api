@@ -547,5 +547,11 @@ return [
             'type' => 'json',
             'default' => []
         ],
+    ],
+    'FUNNEL' => [
+        'ref' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ]
 ];

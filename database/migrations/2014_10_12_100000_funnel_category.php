@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CurrencyCategory extends Migration
+class FunnelCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CurrencyCategory extends Migration
      */
     public function up()
     {
-        Schema::create('currency_category', function (Blueprint $table) {
+        Schema::create('funnel_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->default(0);
-            $table->string('post_type')->default('currency/category');
+            $table->string('post_type')->default('funnel/category');
             $table->enum('status', ['public', 'hide', 'basket'])->default('public');
             $table->string('permalink');
-            $table->string('slug')->default('currency/category');
+            $table->string('slug')->default('funnel/category');
             $table->string('title');
             $table->string('thumbnail', 300);
             $table->string('short_desc', 500);
@@ -43,6 +43,6 @@ class CurrencyCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currency_category');
+        Schema::dropIfExists('funnel_category');
     }
 }
