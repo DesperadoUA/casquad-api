@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->group(function () {
     Route::get('funnel/{id}', 'FunnelController@show')->middleware('cash');
     Route::get('funnels/{id}', 'FunnelController@category')->middleware('cash');
+    Route::get('funnel/reviews/{id}', 'FunnelController@reviews')->middleware(['cash', 'geo']);
 
     Route::post('admin/funnels', 'AdminFunnelController@index')->middleware('api_auth');
     Route::post('admin/funnel/update', 'AdminFunnelController@update')->middleware('api_auth');

@@ -13,6 +13,8 @@ use App\CardBuilder\GameCardBuilder;
 use App\CardBuilder\BaseCardBuilder;
 use App\CardBuilder\NewsCardBuilder;
 use App\CardBuilder\VendorCardBuilder;
+use App\CardBuilder\AuthorCardBuilder;
+use App\CardBuilder\FunnelCardBuilder;
 use Illuminate\Support\Facades\DB;
 
 class PageService extends BaseService {
@@ -156,12 +158,12 @@ class PageService extends BaseService {
         if(!$data->isEmpty()) {
             $newsCardBuilder = new NewsCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
-            $bonusModel = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
+            $newsModel = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
             $settings = [
                 'lang'      => $data[0]->lang,
                 'limit'     => self::MAIN_PAGE_LIMIT_NEWS,
             ];
-            $this->response['body']['news'] = $newsCardBuilder->main($bonusModel->getPublicPosts($settings));
+            $this->response['body']['news'] = $newsCardBuilder->main($newsModel->getPublicPosts($settings));
 
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
@@ -228,15 +230,31 @@ class PageService extends BaseService {
         $data = $post->getPublicPostByUrl($this->config['BONUS_ROOM_CASINO']);
         if(!$data->isEmpty()) {
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
-            /*
             $newsCardBuilder = new NewsCardBuilder();
-            $bonusModel = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
+            $newsModel = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
             $settings = [
                 'lang'      => $data[0]->lang,
-                'limit'     => self::MAIN_PAGE_LIMIT_NEWS,
+                'limit'     => 4,
             ];
-            $this->response['body']['news'] = $newsCardBuilder->main($bonusModel->getPublicPosts($settings));
-            */
+            $this->response['body']['news'] = $newsCardBuilder->main($newsModel->getPublicPosts($settings));
+
+            $funnelCardBuilder = new FunnelCardBuilder();
+            $funnelModel = new Posts(['table' => $this->tables['FUNNEL'], 'table_meta' => $this->tables['FUNNEL_META']]);
+            $settings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => 1000,
+            ];
+            $this->response['body']['funnels'] = $funnelCardBuilder->main($funnelModel->getPublicPosts($settings));
+
+            $this->response['body']['authors'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['PAGE_AUTHOR_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new AuthorCardBuilder();
+                $Model = new Posts(['table' => $this->tables['AUTHOR'], 'table_meta' => $this->tables['AUTHOR_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $posts = $CardBuilder->summary($publicPosts);
+                $this->response['body']['authors'] = $posts;     
+            }
             $this->response['confirm'] = 'ok';
             Cash::store(url()->full(), json_encode($this->response));
         }

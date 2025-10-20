@@ -73,6 +73,10 @@ return [
     'FUNNEL_META' => 'funnel_meta',
     'FUNNEL_CATEGORY' => 'funnel_category',
     'FUNNEL_CATEGORY_RELATIVE' => 'funnel_category_relative',
+    'FUNNEL_AUTHOR_RELATIVE' => 'funnel_author_relative',
+    'FUNNEL_CASINO_RELATIVE' => 'funnel_casino_relative',
+    'FUNNEL_GAME_RELATIVE' => 'funnel_game_relative',
+    'FUNNEL_NEWS_RELATIVE' => 'funnel_news_relative',
 
     'PAGES' => 'pages',
     'PAGE_AUTHOR_RELATIVE' => 'page_author_relative'

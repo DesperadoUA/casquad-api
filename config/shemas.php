@@ -553,5 +553,83 @@ return [
             'type' => 'json',
             'default' => []
         ],
+        'author_summary' => [
+           'type' => 'string',
+           'default' => ''
+        ],
+        'content_1' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_2' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_3' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_4' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_5' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_6' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_7' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_8' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_9' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'content_10' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'pros_cons_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'pros' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'cons' => [
+            'type' => 'json',
+            'default' => []
+        ],
+        'order_components' => [
+            'type' => 'json',
+            'default' => [
+                'content' => 0,
+            ]
+        ],
+        'banner' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'pros_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'cons_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'nav_menu' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ]
 ];

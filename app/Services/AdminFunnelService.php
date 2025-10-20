@@ -23,7 +23,20 @@ class AdminFunnelService extends AdminPostService {
             $this->response['body'] = $this->serialize->adminSerialize($data[0], $this->shemas);
             $this->response['body']['category'] = self::relativeCategoryPost($id, $this->tables['FUNNEL'], 
                                                                                   $this->tables['FUNNEL_CATEGORY'], 
-                                                                                  $this->tables['FUNNEL_CATEGORY_RELATIVE']);                                                                     
+                                                                                  $this->tables['FUNNEL_CATEGORY_RELATIVE']);
+            
+            $this->response['body']['funnel_author'] = self::relativePostPost($id, $this->tables['FUNNEL'], 
+                                                                                   $this->tables['AUTHOR'], 
+                                                                                   $this->tables['FUNNEL_AUTHOR_RELATIVE']);
+            $this->response['body']['funnel_casino'] = self::relativePostPost($id, $this->tables['FUNNEL'], 
+                                                                                   $this->tables['CASINO'], 
+                                                                                   $this->tables['FUNNEL_CASINO_RELATIVE']);
+            $this->response['body']['funnel_game'] = self::relativePostPost($id, $this->tables['FUNNEL'], 
+                                                                                   $this->tables['GAME'], 
+                                                                                   $this->tables['FUNNEL_GAME_RELATIVE']);
+            $this->response['body']['funnel_news'] = self::relativePostPost($id, $this->tables['FUNNEL'], 
+                                                                                   $this->tables['NEWS'], 
+                                                                                   $this->tables['FUNNEL_NEWS_RELATIVE']);
             $this->response['confirm'] = 'ok';
         }
         return $this->response;
@@ -38,6 +51,19 @@ class AdminFunnelService extends AdminPostService {
         self::updateCategory($data['id'], $data['category'], $this->tables['FUNNEL'], 
                                                              $this->tables['FUNNEL_CATEGORY'], 
                                                              $this->tables['FUNNEL_CATEGORY_RELATIVE']);
+        
+        self::updatePostPost($data['id'], $data['funnel_author'], $this->tables['FUNNEL'], 
+                                                                  $this->tables['AUTHOR'], 
+                                                                  $this->tables['FUNNEL_AUTHOR_RELATIVE']);
+         self::updatePostPost($data['id'], $data['funnel_casino'], $this->tables['FUNNEL'], 
+                                                                  $this->tables['CASINO'], 
+                                                                  $this->tables['FUNNEL_CASINO_RELATIVE']);
+        self::updatePostPost($data['id'], $data['funnel_game'], $this->tables['FUNNEL'], 
+                                                                  $this->tables['GAME'], 
+                                                                  $this->tables['FUNNEL_GAME_RELATIVE']); 
+        self::updatePostPost($data['id'], $data['funnel_news'], $this->tables['FUNNEL'], 
+                                                                  $this->tables['NEWS'], 
+                                                                  $this->tables['FUNNEL_NEWS_RELATIVE']);
         $this->response['confirm'] = 'ok';
         Cash::deleteAll();
         return $this->response;
