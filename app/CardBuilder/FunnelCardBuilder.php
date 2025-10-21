@@ -22,7 +22,7 @@ class FunnelCardBuilder extends BaseCardBuilder {
             }
             $posts[] = [
                 'title' => $item->title,
-                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'permalink' => "/bonus-room-casino/{$item->permalink}",
                 'thumbnail' => $item->thumbnail,
                 'update_at' => $item->update_at,
                 'short_desc' => $item->short_desc,

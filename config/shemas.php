@@ -631,5 +631,13 @@ return [
             'type' => 'json',
             'default' => []
         ],
+        'faq_title' => [
+            'type' => 'string',
+            'default' => ''
+        ],
+        'faq' => [
+            'type' => 'json',
+            'default' => []
+        ],
     ]
 ];
