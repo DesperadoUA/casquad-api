@@ -1,349 +1,73 @@
 <?php
+
+$geoDefaults = [
+    'geo_WORLD' => ['type' => 'number', 'default' => 1],
+    'geo_GB' => ['type' => 'number', 'default' => 0],
+    'geo_BD' => ['type' => 'number', 'default' => 0],
+    'geo_AU' => ['type' => 'number', 'default' => 0],
+    'geo_GR' => ['type' => 'number', 'default' => 0],
+    'geo_IN' => ['type' => 'number', 'default' => 0],
+    'geo_ID' => ['type' => 'number', 'default' => 0],
+    'geo_CA' => ['type' => 'number', 'default' => 0],
+    'geo_NL' => ['type' => 'number', 'default' => 0],
+    'geo_DE' => ['type' => 'number', 'default' => 0],
+    'geo_ZA' => ['type' => 'number', 'default' => 0],
+    'geo_PH' => ['type' => 'number', 'default' => 0],
+    'geo_SE' => ['type' => 'number', 'default' => 0],
+];
+
 return [
-    'CASINO' => [
-        'label' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'rating' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'ref' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'color' => [
-            'type' => 'string',
-            'default' => '#D21037'
-        ],
-        'advantages' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'content_reviews' => [
-            'type' => 'rich_text',
-            'default' => ''
-        ],
-        'content_bonuses' => [
-            'type' => 'rich_text',
-            'default' => ''
-        ],
-        'content_analysis' => [
-            'type' => 'rich_text',
-            'default' => ''
-        ],
-        'content_games' => [
-            'type' => 'rich_text',
-            'default' => ''
-        ],
-        'icon' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'wager' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'bonus_value' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'min_dep' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'video' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'video_title' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'geo_WORLD' => [
-            'type' => 'number',
-            'default' => 1
-        ],
-        'geo_GB' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_BD' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_AU' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_GR' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_IN' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ID' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_CA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_NL' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_DE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ZA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_PH' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_SE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'author_summary' => [
-           'type' => 'string',
-           'default' => ''
-        ],
-        'author_card_img' => [
-           'type' => 'string',
-           'default' => ''
-        ],
-        'pros' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'cons' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'payout' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'win_rate' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-    ],
-    'BONUS' => [
-        'rating' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'bonus' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'min_deposit' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'wagering' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'banner' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'ref' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'geo_WORLD' => [
-            'type' => 'number',
-            'default' => 1
-        ],
-        'geo_GB' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_BD' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_AU' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_GR' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_IN' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ID' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_CA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_NL' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_DE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ZA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_PH' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_SE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'author_summary' => [
-           'type' => 'string',
-           'default' => ''
-        ],
-    ],
-    'GAME' => [
-        'iframe' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'rtp' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'min_bid' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'scheme' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'lines' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'symbols' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'screenshots' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'game_week' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'faq_title' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'faq' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'ref' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'video' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'video_title' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'slider_img' => [
-            'type' => 'string',
-            'default' => ''
-        ],
-        'geo_WORLD' => [
-            'type' => 'number',
-            'default' => 1
-        ],
-        'geo_GB' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_BD' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_AU' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_GR' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_IN' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ID' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_CA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_NL' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_DE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_ZA' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_PH' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'geo_SE' => [
-            'type' => 'number',
-            'default' => 0
-        ],
-        'author_summary' => [
-           'type' => 'string',
-           'default' => ''
-        ],
-        'nav_menu' => [
-            'type' => 'json',
-            'default' => []
-        ],
-        'order_components' => [
-            'type' => 'json',
-            'default' => [
-                'content' => 0,
-            ]
-        ],
-    ],
+    'CASINO' => array_merge([
+        'label' => ['type' => 'string','default' => ''],
+        'rating' => ['type' => 'number','default' => 0],
+        'ref' => ['type' => 'json','default' => []],
+        'color' => ['type' => 'string','default' => '#D21037'],
+        'advantages' => ['type' => 'json','default' => []],
+        'content_reviews' => ['type' => 'rich_text','default' => ''],
+        'content_bonuses' => ['type' => 'rich_text','default' => ''],
+        'content_analysis' => ['type' => 'rich_text','default' => ''],
+        'content_games' => ['type' => 'rich_text','default' => ''],
+        'icon' => ['type' => 'string','default' => ''],
+        'wager' => ['type' => 'string','default' => ''],
+        'bonus_value' => ['type' => 'string','default' => ''],
+        'min_dep' => ['type' => 'string','default' => ''],
+        'video' => ['type' => 'json','default' => []],
+        'video_title' => ['type' => 'string','default' => ''],
+        'author_summary' => ['type' => 'string','default' => ''],
+        'author_card_img' => ['type' => 'string','default' => ''],
+        'pros' => ['type' => 'json','default' => []],
+        'cons' => ['type' => 'json','default' => []],
+        'payout' => ['type' => 'string','default' => ''],
+        'win_rate' => ['type' => 'string','default' => ''],
+    ], $geoDefaults),
+    'BONUS' => array_merge([
+        'rating' => ['type' => 'number','default' => 0],
+        'bonus' => ['type' => 'string','default' => ''],
+        'min_deposit' => ['type' => 'string','default' => ''],
+        'wagering' => ['type' => 'string','default' => ''],
+        'banner' => ['type' => 'string','default' => ''],
+        'ref' => ['type' => 'json','default' => []],
+        'author_summary' => ['type' => 'string','default' => ''],
+    ], $geoDefaults),
+    'GAME' => array_merge([
+        'iframe' => ['type' => 'string','default' => ''],
+        'rtp' => ['type' => 'string','default' => ''],
+        'min_bid' => ['type' => 'string','default' => ''],
+        'scheme' => ['type' => 'string','default' => ''],
+        'lines' => ['type' => 'string','default' => ''],
+        'symbols' => ['type' => 'json','default' => []],
+        'screenshots' => ['type' => 'json','default' => []],
+        'game_week' => ['type' => 'number','default' => 0],
+        'faq_title' => ['type' => 'string','default' => ''],
+        'faq' => ['type' => 'json','default' => []],
+        'ref' => ['type' => 'json','default' => []],
+        'video' => ['type' => 'json','default' => []],
+        'video_title' => ['type' => 'string','default' => ''],
+        'slider_img' => ['type' => 'string','default' => ''],
+        'author_summary' => ['type' => 'string','default' => ''],
+        'nav_menu' => ['type' => 'json','default' => []],
+        'order_components' => ['type' => 'json','default' => ['content' => 0]],
+    ], $geoDefaults),
     'NEWS' => [
         'author' => [
             'type' => 'string',
@@ -639,5 +363,14 @@ return [
             'type' => 'json',
             'default' => []
         ],
+        'video_text' => [
+            'type' => 'rich_text',
+            'default' => ''
+        ],
+        'video' => [
+            'type' => 'json',
+            'default' => []
+        ]
     ]
 ];
+?>
