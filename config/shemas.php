@@ -370,6 +370,10 @@ return [
         'video' => [
             'type' => 'json',
             'default' => []
+        ],
+        'show_main_page' => [
+            'type' => 'number', 
+            'default' => 0
         ]
     ]
 ];

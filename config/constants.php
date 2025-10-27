@@ -19,7 +19,7 @@ return [
         'NO_DEPOSIT_BONUS' => 'bonuses/no-deposit-bonus',
         'FREE_SPINS' => 'bonuses/free-spins',
         'PAYMENTS' => 'payments',
-        'BONUS_ROOM_CASINO' => 'bonus-room-casino'
+        'BONUS_ROOM_CASINO' => 'progamblers-blueprint'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];

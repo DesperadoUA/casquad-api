@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Posts extends Model
-{
+class Posts extends Model {
     protected $table;
     protected $table_meta;
 
@@ -115,8 +114,7 @@ class Posts extends Model
             ->count();
         */
     }
-    public function getAll($post_type)
-    {
+    public function getAll($post_type){
         /*
         $post = DB::table(self::TABLE)
             ->where('post_type', $post_type)
