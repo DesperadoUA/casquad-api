@@ -48,7 +48,7 @@ class GameService extends FrontBaseService {
                 $CardBuilder = new CasinoCardBuilder();
                 $Model = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
                 $publicPosts = $Model->getPublicPostsByArrIdAndGeo($arr_posts, $geo);
-                $this->response['body']['casinos'] = $CardBuilder->sliderCard($publicPosts);
+                $this->response['body']['casinos'] = $CardBuilder->main($publicPosts);
             }
 
             $this->response['body']['authors'] = [];

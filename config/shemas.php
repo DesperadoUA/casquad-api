@@ -62,11 +62,12 @@ return [
         'faq' => ['type' => 'json','default' => []],
         'ref' => ['type' => 'json','default' => []],
         'video' => ['type' => 'json','default' => []],
-        'video_title' => ['type' => 'string','default' => ''],
+        'video_text' => ['type' => 'rich_text','default' => ''],
         'slider_img' => ['type' => 'string','default' => ''],
         'author_summary' => ['type' => 'string','default' => ''],
         'nav_menu' => ['type' => 'json','default' => []],
         'order_components' => ['type' => 'json','default' => ['content' => 0]],
+        'video' => ['type' => 'json', 'default' => []]
     ], $geoDefaults),
     'NEWS' => [
         'author' => [
