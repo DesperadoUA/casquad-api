@@ -7,18 +7,21 @@ class PageSerialize extends BaseSerialize {
         $newData = self::adminCommonSerialize($data);
         $newData['faq'] = empty(json_decode($data->faq, true)) ? [] : json_decode($data->faq, true);
         $newData['faq_title'] = $data->faq_title;
+        $newData['author_summary'] = $data->author_summary;
         return $newData;
     }
     public function validateUpdate($data){
         $newData = self::commonValidateInsert($data);
         $newData['faq'] = json_encode($data['faq']);
-        $newData['faq_title'] = $data->faq_title;
+        $newData['faq_title'] = empty($data['faq_title']) ? '' : $data['faq_title'];
+        $newData['author_summary'] = empty($data['author_summary']) ? '' : $data['author_summary'];
         return $newData;
     }
     public function frontSerialize($data) {
         $newData = self::frontCommonSerialize($data);
         $newData['faq'] = empty(json_decode($data->faq, true)) ? [] : json_decode($data->faq, true);
         $newData['faq_title'] = $data->faq_title;
+        $newData['author_summary'] = $data->author_summary;
         return $newData;
     }
 }

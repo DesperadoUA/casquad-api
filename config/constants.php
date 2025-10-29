@@ -16,10 +16,17 @@ return [
         'DEPOSIT_ONE_DOLLAR' => 'minimum-deposit-casinos/one-dollar',
         'DEPOSIT_FIVE_DOLLAR' => 'minimum-deposit-casinos/five-dollar',
         'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar',
+        'DEPOSIT_TWENTY_DOLLAR' => 'minimum-deposit-casinos/twenty-dollar',
         'NO_DEPOSIT_BONUS' => 'bonuses/no-deposit-bonus',
         'FREE_SPINS' => 'bonuses/free-spins',
         'PAYMENTS' => 'payments',
-        'BONUS_ROOM_CASINO' => 'progamblers-blueprint'
+        'BONUS_ROOM_CASINO' => 'progamblers-blueprint',
+        'CASINO_APPS' => 'casino-apps',
+        'CRYPTO_CASINOS' => 'crypto-casinos',
+        'NO_WAGERING' => 'no-wagering',
+        'CASINO_GAMES' => 'casino-games',
+        'VIP_CASINOS' => 'vip-casinos',
+        'FREE_PLAY' => 'free-play',
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
