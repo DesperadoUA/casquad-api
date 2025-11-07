@@ -61,6 +61,15 @@ class GameService extends FrontBaseService {
                 $this->response['body']['authors'] = $posts;
             }
 
+            $this->response['body']['games'] = [];
+            $arr_posts = Relative::getRelativeByPostId($this->tables['GAME_GAME_RELATIVE'], $data[0]->id);
+            if(!empty($arr_posts)) {
+                $CardBuilder = new GameCardBuilder();
+                $Model = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
+                $publicPosts = $Model->getPublicPostsByArrId($arr_posts);
+                $this->response['body']['games'] = $CardBuilder->main($publicPosts);
+            }
+
             $ref_list = [];
             foreach($this->response['body']['ref'] as $item) {
                 $ref_list[$item['value_2']] = $item['value_1'];

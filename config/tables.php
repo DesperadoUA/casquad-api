@@ -26,6 +26,7 @@ return [
     'GAME_VENDOR_RELATIVE' => 'game_vendor_relative',
     'GAME_CASINO_RELATIVE' => 'game_casino_relative',
     'GAME_AUTHOR_RELATIVE' => 'game_author_relative',
+    'GAME_GAME_RELATIVE' => 'game_game_relative',
 
     'NEWS' => 'news',
     'NEWS_META' => 'news_meta',
