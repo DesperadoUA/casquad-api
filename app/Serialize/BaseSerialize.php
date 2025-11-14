@@ -83,12 +83,8 @@ class BaseSerialize {
         $newData['create_at'] = $data->create_at;
         $newData['update_at'] = $data->update_at;
         $newData['slug'] = $data->slug;
-        $str = str_replace('<pre', '<div', $data->content);
-        $str = str_replace('</pre', '</div', $str);
-        $str = str_replace('&nbsp;', '', $str);
-        $str = str_replace('<p><br></p>', '', $str);
-        $str = str_replace('<p></p>', '', $str);
-        $newData['content'] = ShortcodeManager::parse(htmlspecialchars_decode($str), $data);
+        $cleanContent = self::cleanContent($data->content);
+        $newData['content'] = ShortcodeManager::parse(htmlspecialchars_decode($cleanContent), $data);
         $newData['description'] = htmlspecialchars_decode($data->description);
         $newData['h1'] = htmlspecialchars_decode($data->h1);
         $newData['keywords'] = htmlspecialchars_decode($data->keywords);
@@ -99,5 +95,13 @@ class BaseSerialize {
         $newData['post_type'] = $data->post_type;
         $newData['social_img'] = empty($data->social_img) ? config('constants.DEFAULT_SRC') : $data->social_img;
         return $newData;
+    }
+    public static function cleanContent($content) {
+        $str = str_replace('<pre', '<div', $content);
+        $str = str_replace('</pre', '</div', $str);
+        $str = str_replace('&nbsp;', '', $str);
+        $str = str_replace('<p><br></p>', '', $str);
+        $str = str_replace('<p></p>', '', $str);
+        return $str;
     }
 }

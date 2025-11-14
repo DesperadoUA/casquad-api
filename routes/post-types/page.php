@@ -16,6 +16,8 @@ Route::namespace('Api')->group(function () {
     Route::get('pages/'.config('constants.PAGES.DEPOSIT_FIVE_DOLLAR'), 'PageController@default')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.DEPOSIT_TEN_DOLLAR'), 'PageController@default')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.DEPOSIT_TWENTY_DOLLAR'), 'PageController@default')->middleware('cash');
+    Route::get('pages/'.config('constants.PAGES.CASINO_GAMES_ROULETTE_ONLINE_CASINOS'), 'PageController@default')->middleware('cash');
+    Route::get('pages/'.config('constants.PAGES.CASINO_GAMES_VIDEO_POKER_ONLINE'), 'PageController@default')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.NO_DEPOSIT_BONUS'), 'PageController@default')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.FREE_SPINS'), 'PageController@default')->middleware('cash');
     Route::get('pages/'.config('constants.PAGES.PAYMENTS'), 'PageController@default')->middleware('cash');

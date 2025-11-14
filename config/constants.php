@@ -27,6 +27,8 @@ return [
         'CASINO_GAMES' => 'casino-games',
         'VIP_CASINOS' => 'vip-casinos',
         'FREE_PLAY' => 'free-play',
+        'CASINO_GAMES_ROULETTE_ONLINE_CASINOS' => 'casino-games/roulette-online-casinos',
+        'CASINO_GAMES_VIDEO_POKER_ONLINE' => 'casino-games/video-poker-online'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
