@@ -28,7 +28,11 @@ return [
         'VIP_CASINOS' => 'vip-casinos',
         'FREE_PLAY' => 'free-play',
         'CASINO_GAMES_ROULETTE_ONLINE_CASINOS' => 'casino-games/roulette-online-casinos',
-        'CASINO_GAMES_VIDEO_POKER_ONLINE' => 'casino-games/video-poker-online'
+        'CASINO_GAMES_VIDEO_POKER_ONLINE' => 'casino-games/video-poker-online',
+        'CASINO_GAMES_BLACKJACK' => 'casino-games/blackjack',
+        'CASINO_GAMES_BINGO' => 'casino-games/bingo',
+        'CASINO_GAMES_CRAPS' => 'casino-games/craps',
+        'CASINO_GAMES_BACCARAT' => 'casino-games/baccarat'
     ],
     'AVAILABLE_SORT_REVIEW' => ['rating', 'update_at']
 ];
