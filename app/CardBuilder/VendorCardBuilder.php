@@ -46,4 +46,16 @@ class VendorCardBuilder extends BaseCardBuilder {
         }
         return $posts;
     }
+    public function default($arr_posts) {
+        if(empty($arr_posts)) return [];
+        $posts = [];
+        foreach ($arr_posts as $item) {
+            $posts[] = [
+                'title' => $item->title,
+                'permalink' => '/'.$item->slug.'/'.$item->permalink,
+                'src' => $item->thumbnail
+            ];
+        }
+        return $posts;
+    }
 }

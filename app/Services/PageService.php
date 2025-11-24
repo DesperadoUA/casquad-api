@@ -46,6 +46,69 @@ class PageService extends BaseService {
             $casino = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
             $settings = [
                 'lang'      => $data[0]->lang,
+                'limit'     => 3,
+                'order_key' => 'rating',
+                'geo' => $geo
+            ];
+            $this->response['body']['casino'] = $casinoCardBuilder->main($casino->getPublicPostsByGeo($settings));
+           
+            $gameCardBuilder = new GameCardBuilder();
+            $game = new Posts(['table' => $this->tables['GAME'], 'table_meta' => $this->tables['GAME_META']]);
+            $gameSettings = [
+                'lang' => $data[0]->lang,
+                'limit' => 10
+            ];
+            $this->response['body']['games'] = $gameCardBuilder->slider($game->getPublicPosts($gameSettings));
+
+            $bonusCardBuilder = new BonusCardBuilder();
+            $bonus = new Posts(['table' => $this->tables['BONUS'], 'table_meta' => $this->tables['BONUS_META']]);
+            $bonusSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::SLIDER_LIMIT_BONUS,
+                'geo' => $geo
+            ];
+            $this->response['body']['bonuses'] = $bonusCardBuilder->slider($bonus->getPublicPostsByGeo($bonusSettings));
+
+            $topBonusSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::ASIDE_LIMIT_BONUS,
+                'order_key' => 'rating',
+                'geo' => $geo
+            ];
+            $this->response['body']['top_bonuses'] = $bonusCardBuilder->main($bonus->getPublicPostsByGeo($topBonusSettings));
+
+            $newsCardBuilder = new NewsCardBuilder();
+            $news = new Posts(['table' => $this->tables['NEWS'], 'table_meta' => $this->tables['NEWS_META']]);
+            $newsSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => self::SLIDER_LIMIT_NEWS,
+            ];
+            $this->response['body']['news'] = $newsCardBuilder->main($news->getPublicPosts($newsSettings));
+
+            $vendorCardBuilder = new VendorCardBuilder();
+            $vendorModel = new Posts(['table' => $this->tables['VENDOR'], 'table_meta' => $this->tables['VENDOR_META']]);
+            $vendorSettings = [
+                'lang'      => $data[0]->lang,
+                'limit'     => 100,
+                'order_key' => 'rating'
+            ];
+            $this->response['body']['vendors'] = $vendorCardBuilder->default($vendorModel->getPublicPosts($vendorSettings));
+            
+            $this->response['geo'] = $geo;
+            $this->response['confirm'] = 'ok';
+            Cash::store(url()->full(), json_encode($this->response));
+        }
+        return $this->response;
+    }
+    public function bestCasinos($geo) {
+        $post = new Pages();
+        $data = $post->getPublicPostByUrl($this->config['BEST_CASINOS']);
+        if(!$data->isEmpty()) {
+            $casinoCardBuilder = new CasinoCardBuilder();
+            $this->response['body'] = $this->serialize->frontSerialize($data[0]);
+            $casino = new Posts(['table' => $this->tables['CASINO'], 'table_meta' => $this->tables['CASINO_META']]);
+            $settings = [
+                'lang'      => $data[0]->lang,
                 'limit'     => self::MAIN_PAGE_LIMIT_CASINO,
                 'order_key' => 'rating',
                 'geo' => $geo
