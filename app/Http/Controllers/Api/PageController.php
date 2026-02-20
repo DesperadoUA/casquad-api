@@ -37,8 +37,8 @@ class PageController extends Controller
     public function main(Request $request) {
         return response()->json($this->service->main($request->input('geo')));
     }
-    public function bestCasinos(Request $request) {
-        return response()->json($this->service->bestCasinos($request->input('geo')));
+    public function about(Request $request) {
+        return response()->json($this->service->about($request->input('geo')));
     }
     public function shares(){
         return response()->json($this->service->shares());

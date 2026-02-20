@@ -13,7 +13,7 @@ return [
         'NEWS' => 'news',
         'BONUSES' => 'bonuses',
         'GAMES' => 'slots',
-        'BEST_CASINOS' => 'best-casinos',
+        'ABOUT' => 'about',
         'DEPOSIT_ONE_DOLLAR' => 'minimum-deposit-casinos/one-dollar',
         'DEPOSIT_FIVE_DOLLAR' => 'minimum-deposit-casinos/five-dollar',
         'DEPOSIT_TEN_DOLLAR' => 'minimum-deposit-casinos/ten-dollar',

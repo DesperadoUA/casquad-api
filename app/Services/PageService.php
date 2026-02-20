@@ -37,9 +37,9 @@ class PageService extends BaseService {
         $this->config = config('constants.PAGES');
         $this->serialize = new PageSerialize();
     }
-    public function main($geo) {
+    public function about($geo) {
         $post = new Pages();
-        $data = $post->getPublicPostByUrl('/');
+        $data = $post->getPublicPostByUrl($this->config['ABOUT']);
         if(!$data->isEmpty()) {
             $casinoCardBuilder = new CasinoCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);
@@ -100,9 +100,9 @@ class PageService extends BaseService {
         }
         return $this->response;
     }
-    public function bestCasinos($geo) {
+    public function main($geo) {
         $post = new Pages();
-        $data = $post->getPublicPostByUrl($this->config['BEST_CASINOS']);
+        $data = $post->getPublicPostByUrl('/');
         if(!$data->isEmpty()) {
             $casinoCardBuilder = new CasinoCardBuilder();
             $this->response['body'] = $this->serialize->frontSerialize($data[0]);

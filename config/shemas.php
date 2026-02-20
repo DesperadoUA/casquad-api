@@ -14,6 +14,21 @@ $geoDefaults = [
     'geo_ZA' => ['type' => 'number', 'default' => 0],
     'geo_PH' => ['type' => 'number', 'default' => 0],
     'geo_SE' => ['type' => 'number', 'default' => 0],
+    'geo_IT' => ['type' => 'number', 'default' => 0],
+    'geo_NZ' => ['type' => 'number', 'default' => 0],
+    'geo_CH' => ['type' => 'number', 'default' => 0],
+    'geo_FI' => ['type' => 'number', 'default' => 0],
+    'geo_MY' => ['type' => 'number', 'default' => 0],
+    'geo_HU' => ['type' => 'number', 'default' => 0],
+    'geo_FR' => ['type' => 'number', 'default' => 0],
+    'geo_HR' => ['type' => 'number', 'default' => 0],
+    'geo_AT' => ['type' => 'number', 'default' => 0],
+    'geo_BE' => ['type' => 'number', 'default' => 0],
+    'geo_PL' => ['type' => 'number', 'default' => 0],
+    'geo_PT' => ['type' => 'number', 'default' => 0],
+    'geo_RO' => ['type' => 'number', 'default' => 0],
+    'geo_NO' => ['type' => 'number', 'default' => 0],
+    'geo_BR' => ['type' => 'number', 'default' => 0],
 ];
 
 return [
